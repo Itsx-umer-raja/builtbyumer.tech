@@ -513,3 +513,164 @@ html.js-anim .hv-reveal.is-visible {
 .animate-aurora-bg {
   animation: aurora-bg 8s ease-in-out infinite;
 }
+
+/* ══════════════════════════════════════════════════════════════
+   HOME V3 DESIGN SYSTEM — "BuiltByUmer, animated"
+   Light paper editorial system. Scoped to .home-v3 so the dark
+   inner pages (PageShell / .home-v2) are untouched. One accent
+   only: vermillion. The ResourceBoy paper texture lives on the
+   body underneath; .home-v3 is translucent so the grain shows
+   through as the single texture system.
+   Palette:
+     --v3-bg      #faf8f2  paper white (translucent over body grain)
+     --v3-surface #ffffff  card surface
+     --v3-ink     #161613  near-black text
+     --v3-muted   #6f6f66  secondary text
+     --v3-accent  #FF4D00  vermillion (the ONLY accent)
+     --v3-accent2 #FF7A3D  vermillion highlight (tints only)
+     --v3-line    rgba(22,22,19,.12)
+   Type: Fraunces (display serif, italic accents) + Space Grotesk
+   (grotesque sans) + JetBrains Mono (labels / numbers).
+   Motion: GSAP + Lenis, transform/opacity only. All initial
+   hidden states live under html.js-anim (set pre-paint by the
+   inline script in layout.tsx), so content stays visible with
+   JS disabled or reduced motion.
+   ══════════════════════════════════════════════════════════════ */
+:root {
+  --v3-bg: #faf8f2;
+  --v3-surface: #ffffff;
+  --v3-ink: #161613;
+  --v3-muted: #6f6f66;
+  --v3-accent: #ff4d00;
+  --v3-accent-2: #ff7a3d;
+  --v3-line: rgba(22, 22, 19, 0.12);
+  --v3-line-strong: rgba(22, 22, 19, 0.22);
+}
+
+@theme {
+  --color-v3-bg: #faf8f2;
+  --color-v3-surface: #ffffff;
+  --color-v3-ink: #161613;
+  --color-v3-muted: #6f6f66;
+  --color-v3-accent: #ff4d00;
+  --color-v3-accent-2: #ff7a3d;
+  --color-v3-line: rgba(22, 22, 19, 0.12);
+  --color-v3-line-strong: rgba(22, 22, 19, 0.22);
+}
+
+.home-v3 {
+  /* Translucent so the body's ResourceBoy paper grain shows through */
+  background-color: rgba(250, 248, 242, 0.88);
+  color: var(--v3-ink);
+  font-family: var(--font-grotesk), system-ui, sans-serif;
+  overflow-x: clip;
+}
+
+.home-v3 ::selection {
+  background: var(--v3-accent);
+  color: #fff;
+}
+
+.home-v3 a:focus-visible,
+.home-v3 button:focus-visible,
+.home-v3 input:focus-visible {
+  outline: 2px solid var(--v3-accent);
+  outline-offset: 3px;
+}
+
+/* Outlined display text (footer wordmark) */
+.v3-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(22, 22, 19, 0.25);
+}
+
+/* Mono eyebrow label */
+.v3-eyebrow {
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--v3-muted);
+}
+.v3-eyebrow .v3-dot {
+  color: var(--v3-accent);
+}
+
+/* Underline reveal for inline links */
+.v3-link-line {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  transition: background-size 0.45s cubic-bezier(0.65, 0, 0.35, 1);
+  padding-bottom: 2px;
+}
+.v3-link-line:hover,
+a:hover > .v3-link-line {
+  background-size: 100% 1px;
+}
+
+/* ── Hero kinetic headline ─────────────────────────────── */
+/* Hidden only when JS is present (layout adds .js-anim pre-paint),
+   so the headline stays visible with JS disabled or reduced motion.
+   Transform-only rise — no opacity on the headline itself, so it
+   paints from the server HTML and rises immediately on mount. */
+html.js-anim .v3-hero-line {
+  transform: translateY(112%);
+}
+html.js-anim .v3-hero-fade {
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+/* ── Scroll reveals ────────────────────────────────────── */
+html.js-anim .v3-reveal {
+  opacity: 0;
+  transform: translateY(32px);
+}
+
+/* ── Marquee ───────────────────────────────────────────── */
+@keyframes v3-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.v3-marquee-track {
+  animation: v3-marquee 32s linear infinite;
+  will-change: transform;
+}
+.v3-marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* ── Floating chips ────────────────────────────────────── */
+@keyframes v3-float {
+  0%, 100% { transform: translateY(0) rotate(var(--v3-chip-rot, 0deg)); }
+  50% { transform: translateY(-10px) rotate(var(--v3-chip-rot, 0deg)); }
+}
+.v3-float {
+  animation: v3-float 5s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* ── Slow spin for the hero badge ──────────────────────── */
+@keyframes v3-spin-slow {
+  to { transform: rotate(360deg); }
+}
+.v3-spin-slow {
+  animation: v3-spin-slow 14s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v3-hero-line,
+  .v3-hero-fade,
+  .v3-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .v3-marquee-track,
+  .v3-float,
+  .v3-spin-slow {
+    animation: none !important;
+  }
+}
