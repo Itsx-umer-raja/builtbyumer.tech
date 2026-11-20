@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
 import { HeaderV4 } from "./HeaderV4";
 import { HeroV4 } from "./HeroV4";
+import { PopularToolsV4 } from "./PopularToolsV4";
 import { MarqueeV4 } from "./MarqueeV4";
 import { StatsV4 } from "./StatsV4";
 import { CategoryBentoV4 } from "./CategoryBentoV4";
@@ -21,7 +22,9 @@ gsap.registerPlugin(ScrollTrigger);
  * hero headline paints from the server HTML and rises on mount
  * (transform only). Entrance runs ~1.9s, mirroring the Synthora
  * sequence: nav fades in, badge opens from centre, headline wipes
- * up out of a clip, subline then buttons rise. All motion is
+ * up out of a clip, subline then search/chips/buttons rise. Section
+ * flow: hero → popular tools → marquee → categories → how it
+ * works → playground → stats (proof) → footer. All motion is
  * skipped when the user prefers reduced motion, and every initial
  * hidden state lives under html.js-anim in CSS, so content stays
  * visible with JS disabled or reduced motion.
@@ -93,6 +96,23 @@ export default function HomeV4() {
           scrollTrigger: { trigger: el, start: "top 88%", once: true },
         });
       });
+      // Staggered groups: heading → text → cards, 80ms apart, so a
+      // section arrives as a sequence instead of one flat wall.
+      gsap.utils
+        .toArray<HTMLElement>("[data-stagger-group]")
+        .forEach((group) => {
+          const items =
+            group.querySelectorAll<HTMLElement>("[data-stagger-item]");
+          if (items.length === 0) return;
+          gsap.to(items, {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: "power3.out",
+            stagger: 0.08,
+            scrollTrigger: { trigger: group, start: "top 88%", once: true },
+          });
+        });
     }, rootRef);
     return () => ctx.revert();
   }, []);
@@ -112,11 +132,12 @@ export default function HomeV4() {
       <HeaderV4 onNavigate={navigate} />
       <main>
         <HeroV4 onNavigate={navigate} />
+        <PopularToolsV4 />
         <MarqueeV4 />
-        <StatsV4 />
         <CategoryBentoV4 />
         <HowItWorksV4 />
         <PlaygroundV4 />
+        <StatsV4 />
       </main>
       <FooterV4 />
     </div>

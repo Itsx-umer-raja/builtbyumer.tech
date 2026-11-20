@@ -6,6 +6,7 @@ import { ArrowUpRight, Menu, X } from "lucide-react";
 import { Magnetic } from "../home-v2/Magnetic";
 
 const NAV: Array<{ label: string; target: string }> = [
+  { label: "Popular", target: "#popular" },
   { label: "Categories", target: "#categories" },
   { label: "How it works", target: "#how" },
   { label: "Playground", target: "#playground" },

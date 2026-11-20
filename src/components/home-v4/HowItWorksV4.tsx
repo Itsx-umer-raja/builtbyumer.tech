@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { motion, useInView, useScroll, useSpring } from "framer-motion";
 import { Download, MousePointerClick, ShieldCheck } from "lucide-react";
+import { EmberLine, SectionHeader } from "./SectionHeader";
 
 const STEPS = [
   {
@@ -32,7 +33,7 @@ function Step({ s }: { s: (typeof STEPS)[number] }) {
   const ref = useRef<HTMLDivElement>(null);
   const active = useInView(ref, { margin: "-35% 0px -35% 0px" });
   return (
-    <div ref={ref} className="v4-reveal relative flex gap-5 sm:gap-8">
+    <div ref={ref} data-stagger-item className="relative flex gap-5 sm:gap-8">
       <div
         className={`relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full border transition-colors duration-500 sm:h-20 sm:w-20 ${
           active
@@ -82,20 +83,20 @@ export function HowItWorksV4() {
   return (
     <section id="how" className="relative scroll-mt-20 bg-black">
       <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8 sm:py-28">
-        <div className="v4-reveal">
-          <p className="v4-eyebrow">
-            <span className="v4-dot">●</span> 02 — How it works
-          </p>
-          <h2 className="mt-4 max-w-2xl font-anta text-4xl leading-[1.05] tracking-[0.01em] text-white sm:text-6xl">
-            Three steps.
-            <br />
-            <span className="bg-gradient-to-r from-[#ff9646] to-[#ff4d00] bg-clip-text text-transparent">
-              Nothing uploaded.
-            </span>
-          </h2>
-        </div>
+        <SectionHeader
+          index="03"
+          eyebrow="How it works"
+          title={
+            <>
+              Three steps.
+              <br />
+              <EmberLine>Nothing uploaded.</EmberLine>
+            </>
+          }
+          subline="No accounts. No uploads. No waiting. The tool opens, does the job, and the result is yours."
+        />
 
-        <div ref={ref} className="relative mt-14">
+        <div ref={ref} data-stagger-group className="relative mt-14">
           <div className="absolute bottom-0 left-[27px] top-0 w-px bg-white/10 sm:left-[39px]" aria-hidden />
           <motion.div
             className="absolute left-[27px] top-0 w-px origin-top bg-[#ff4d00] sm:left-[39px]"

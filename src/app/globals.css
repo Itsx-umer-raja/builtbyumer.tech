@@ -862,17 +862,46 @@ html.js-anim .v4-reveal {
   animation: v4-spin-slow 14s linear infinite;
 }
 
+/* ── Gentle float for the hero's drifting tool chips ────── */
+@keyframes v4-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.v4-float {
+  animation: v4-float 6s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* ── Staggered group reveals (GSAP drives these; CSS only
+   sets the initial state under html.js-anim) ────────────── */
+html.js-anim .v4-stagger-item {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+/* ── Focus visibility: every interactive element on the
+   homepage gets a clear ember ring when keyboard-focused ── */
+.home-v4 :focus-visible {
+  outline: 2px solid var(--v4-ember);
+  outline-offset: 3px;
+}
+.home-v4 input:focus-visible {
+  outline: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .v4-nav,
   .v4-badge,
   .v4-hero-line,
   .v4-hero-fade,
-  .v4-reveal {
+  .v4-reveal,
+  .v4-stagger-item {
     opacity: 1 !important;
     transform: none !important;
   }
   .v4-marquee-track,
-  .v4-spin-slow {
+  .v4-spin-slow,
+  .v4-float {
     animation: none !important;
   }
   .v4-glow-video {

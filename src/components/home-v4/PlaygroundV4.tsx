@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { ArrowUpRight, Calculator, KeyRound, Type as TypeIcon } from "lucide-react";
 import { TOOL_MAP } from "@/data/tools";
+import { EmberLine, SectionHeader } from "./SectionHeader";
 
 /**
  * Playground teaser — three of the most reached-for tools as
@@ -38,31 +39,26 @@ export function PlaygroundV4() {
   return (
     <section id="playground" className="relative scroll-mt-20 bg-black">
       <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8 sm:py-28">
-        <div className="v4-reveal flex flex-wrap items-end justify-between gap-6">
-          <div>
-            <p className="v4-eyebrow">
-              <span className="v4-dot">●</span> 03 — Try one now
-            </p>
-            <h2 className="mt-4 font-anta text-4xl leading-[1.05] tracking-[0.01em] text-white sm:text-6xl">
+        <SectionHeader
+          index="04"
+          eyebrow="Try one now"
+          title={
+            <>
               Don&apos;t take our word.
               <br />
-              <span className="bg-gradient-to-r from-[#ff9646] to-[#ff4d00] bg-clip-text text-transparent">
-                Try one.
-              </span>
-            </h2>
-          </div>
-          <p className="max-w-sm text-sm leading-relaxed text-white/55 sm:text-base">
-            Three favourites, one click away. They open on their own page —
-            free, private, and already loaded.
-          </p>
-        </div>
+              <EmberLine>Try one.</EmberLine>
+            </>
+          }
+          subline="Three favourites, one click away. They open on their own page — free, private, and already loaded."
+        />
 
-        <div className="mt-12 grid gap-4 md:grid-cols-3">
+        <div data-stagger-group className="mt-12 grid gap-4 md:grid-cols-3">
           {tools.map((p) => (
             <Link
               key={p.id}
               href={`/${p.tool!.category}/${p.tool!.id}`}
-              className="v4-reveal group relative flex flex-col rounded-3xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur transition-all duration-300 hover:-translate-y-1.5 hover:border-[#ff9646]/50 hover:shadow-[0_20px_45px_rgba(255,77,0,0.18)] sm:p-7"
+              data-stagger-item
+              className="group relative flex flex-col rounded-3xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur transition-all duration-300 hover:-translate-y-1.5 hover:border-[#ff9646]/50 hover:shadow-[0_20px_45px_rgba(255,77,0,0.18)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ff9646] sm:p-7"
             >
               <div className="flex items-start justify-between gap-4">
                 <span className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-white transition-colors duration-300 group-hover:border-[#ff4d00] group-hover:bg-[#ff4d00] group-hover:text-white">
