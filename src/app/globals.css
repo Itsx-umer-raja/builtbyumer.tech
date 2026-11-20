@@ -1047,3 +1047,147 @@ html.js-anim [data-stagger-item] {
     animation: none !important;
   }
 }
+
+/* ══════════════════════════════════════════════════════════════
+   Home V7 design system — "Route 145", BuiltByUmer as an
+   Expedia Route 66-style journey (user's V7 brief, 2026-11-20).
+   Scoped to .home-v7 so the older .home-v2/…/.home-v5 systems
+   are untouched.
+   Palette — warm cream topo paper, deep forest green, dark
+   brown ink, vermillion #FF4D00 as the SINGLE accent:
+     --v7-cream   #FDF6E3  topo paper base
+     --v7-forest  #163D2B  welcome / teaser sections
+     --v7-ink     #2A2118  dark brown text / surfaces
+     --v7-accent  #FF4D00  vermillion (route line, pills,
+                            active states — nothing else)
+   Type — THREE voices (Expedia's pairing): Antonio (huge
+   all-caps condensed headlines) + Caveat (loose script for
+   nicknames/labels) + Space Grotesk (small letterspaced caps
+   for eyebrows/buttons/nav; plain readable body).
+   Motifs: topo contour texture, ROUTE 145 shield, checkered
+   flags, diamond arrows, vermillion pill CTAs, hand-drawn
+   wavy route lines with circular nodes, rounded-top panels.
+   Motion: scroll drives the vehicle and draws the route;
+   reveals are transform/opacity only, under html.js-anim.
+   Reduced motion: no ritual, no Ken Burns, no vehicle travel,
+   final states everywhere.
+   ══════════════════════════════════════════════════════════════ */
+:root {
+  --v7-cream: #fdf6e3;
+  --v7-forest: #163d2b;
+  --v7-ink: #2a2118;
+  --v7-accent: #ff4d00;
+  --v7-paper: #fffdf6;
+  --v7-muted: rgba(42, 33, 24, 0.6);
+  --v7-line: rgba(42, 33, 24, 0.15);
+}
+
+@theme {
+  --color-v7-cream: #fdf6e3;
+  --color-v7-forest: #163d2b;
+  --color-v7-ink: #2a2118;
+  --color-v7-accent: #ff4d00;
+  --color-v7-paper: #fffdf6;
+  --color-v7-muted: rgba(42, 33, 24, 0.6);
+  --color-v7-line: rgba(42, 33, 24, 0.15);
+  --font-antonio: var(--font-antonio), "Arial Narrow", system-ui, sans-serif;
+  --font-caveat: var(--font-caveat), "Segoe Script", cursive;
+}
+
+.home-v7 {
+  background-color: var(--v7-cream);
+  color: var(--v7-ink);
+  font-family: var(--font-grotesk), system-ui, sans-serif;
+  overflow-x: clip;
+}
+
+.home-v7 ::selection {
+  background: var(--v7-accent);
+  color: #fff;
+}
+
+.home-v7 a:focus-visible,
+.home-v7 button:focus-visible,
+.home-v7 input:focus-visible {
+  outline: 2px solid var(--v7-accent);
+  outline-offset: 3px;
+}
+
+/* Grotesk eyebrow label */
+.v7-eyebrow {
+  font-family: var(--font-grotesk), system-ui, sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--v7-muted);
+}
+footer .v7-eyebrow {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* Outlined display text (footer wordmark, on ink) */
+.v7-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(253, 246, 227, 0.35);
+}
+
+/* Faint topo contour texture for section backgrounds */
+.v7-topo-bg {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><g fill='none' stroke='%232a2118' stroke-opacity='0.05' stroke-width='1.2'><ellipse cx='130' cy='130' rx='34' ry='26'/><ellipse cx='130' cy='130' rx='62' ry='48'/><ellipse cx='130' cy='130' rx='92' ry='72'/><ellipse cx='130' cy='130' rx='122' ry='96'/><ellipse cx='130' cy='130' rx='152' ry='120'/></g></svg>");
+}
+
+/* ── Scroll reveals ────────────────────────────────────── */
+/* Hidden only when JS is present (layout adds .js-anim pre-paint),
+   so content stays visible with JS disabled or reduced motion. */
+html.js-anim .v7-reveal {
+  opacity: 0;
+  transform: translateY(32px);
+}
+html.js-anim .home-v7 [data-stagger-item] {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+/* ── Gate hero: slow Ken Burns zoom on the dusk highway ── */
+@keyframes v7-kenburns {
+  from { transform: scale(1); }
+  to { transform: scale(1.09); }
+}
+.v7-kenburns {
+  animation: v7-kenburns 26s ease-in-out infinite alternate;
+}
+
+/* ── Gate route line: wipes in from the left ───────────── */
+@keyframes v7-wipe {
+  from { transform: scaleX(0); opacity: 0; }
+  to { transform: scaleX(1); opacity: 1; }
+}
+.v7-route-draw {
+  transform-box: fill-box;
+  transform-origin: left center;
+  animation: v7-wipe 1.6s ease-out 0.5s both;
+}
+
+/* ── Scroll hint chevrons ──────────────────────────────── */
+@keyframes v7-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(5px); }
+}
+.v7-bounce {
+  animation: v7-bounce 1.6s ease-in-out infinite;
+}
+
+/* ── Reduced motion: everything lands in its final state ── */
+@media (prefers-reduced-motion: reduce) {
+  .v7-kenburns,
+  .v7-route-draw,
+  .v7-bounce {
+    animation: none !important;
+  }
+  .v7-reveal,
+  .home-v7 [data-stagger-item] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

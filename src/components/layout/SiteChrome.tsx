@@ -35,7 +35,7 @@ export function SiteHeader() {
   );
 
   return (
-    <header className="relative z-40 border-b border-[#141412]/15 bg-[#faf8f2]">
+    <header className="relative z-40 border-b border-[#2a2118]/15 bg-[#fdf6e3]">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:h-[72px] lg:px-8">
         <Link
           href="/"
@@ -139,7 +139,7 @@ export function SiteFooter() {
   ];
 
   return (
-    <footer className="border-t border-white/10 bg-[#141412]">
+    <footer className="border-t border-white/10 bg-[#2a2118]">
       {/* Slim closing CTA — echoes FooterV4 without repeating its giant block */}
       <div className="mx-auto max-w-7xl px-5 pt-14 sm:px-8">
         <p className="v5-eyebrow">

@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
-import { Anta, Antonio, Manrope, Inter_Tight, JetBrains_Mono, Instrument_Serif, Fraunces, Space_Grotesk, Geist } from "next/font/google";
+import { Anta, Antonio, Caveat, Manrope, Inter_Tight, JetBrains_Mono, Instrument_Serif, Fraunces, Space_Grotesk, Geist } from "next/font/google";
 import { SITE } from "@/data/site";
 import StyledJsxRegistry from "@/components/StyledJsxRegistry";
 import "./globals.css";
@@ -18,9 +18,18 @@ const anta = Anta({
 });
 
 const antonio = Antonio({
-  weight: "400",
+  weight: ["400", "700"],
   subsets: ["latin"],
   variable: "--font-antonio",
+  display: "swap",
+});
+
+/* Home V7 design system — loose script voice for Route 145
+   nicknames and labels (Expedia's script + condensed pairing). */
+const caveat = Caveat({
+  weight: ["400", "500", "600", "700"],
+  subsets: ["latin"],
+  variable: "--font-caveat",
   display: "swap",
 });
 
@@ -116,7 +125,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
-  themeColor: "#ECEAE4",
+  themeColor: "#fdf6e3",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -124,7 +133,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       suppressHydrationWarning
-      className={cn("h-full", "antialiased", anta.variable, antonio.variable, manrope.variable, interTight.variable, instrumentSerif.variable, jetbrains.variable, fraunces.variable, spaceGrotesk.variable, "font-sans", geist.variable)}
+      className={cn("h-full", "antialiased", anta.variable, antonio.variable, caveat.variable, manrope.variable, interTight.variable, instrumentSerif.variable, jetbrains.variable, fraunces.variable, spaceGrotesk.variable, "font-sans", geist.variable)}
     >
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
         <StyledJsxRegistry>
