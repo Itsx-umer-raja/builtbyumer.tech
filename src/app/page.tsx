@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import HomeV7 from "@/components/home-v7/HomeV7";
+import HomeV8 from "@/components/home-v8/HomeV8";
 import { SITE } from "@/data/site";
 
 export const metadata: Metadata = {
@@ -48,7 +48,7 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteLd) }}
       />
-      <HomeV7 />
+      <HomeV8 />
     </>
   );
 }

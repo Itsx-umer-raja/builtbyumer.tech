@@ -8,47 +8,49 @@ import { SITE } from "@/data/site";
 
 /**
  * Shared chrome for every non-homepage route. Restyled into the
- * Home V5 three-colour system (Stage 5): paper header, ink black
- * footer, vermillion accent — nothing else.
- * Header is deliberately NOT sticky: the global mobile CSS forces
- * overflow-x:hidden, which breaks position:sticky. Homepage keeps
- * its own HeaderV5/FooterV5.
+ * Home V8 dark cinematic system (Phase 4): #070912 header and
+ * footer, violet #8B7CFF accent, hairline borders — nothing
+ * else. Inner tool page bodies stay exactly as they are (tool
+ * interfaces are Phase 7, later); only this chrome changed.
+ * Header is deliberately NOT sticky: the global mobile CSS
+ * forces overflow-x:hidden, which breaks position:sticky.
+ * Homepage keeps its own HeaderV8/FooterV8.
  */
 export function SiteHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const nav = (
     <>
-      <Link href="/tools" className="transition hover:text-[#ff4d00]">
-        <span className="v5-link-line">All Tools</span>
+      <Link href="/tools" className="transition hover:text-[#8b7cff]">
+        <span className="v8-link-line">All Tools</span>
       </Link>
-      <Link href="/portfolio" className="transition hover:text-[#ff4d00]">
-        <span className="v5-link-line">Portfolio</span>
+      <Link href="/portfolio" className="transition hover:text-[#8b7cff]">
+        <span className="v8-link-line">Portfolio</span>
       </Link>
-      <Link href="/about" className="transition hover:text-[#ff4d00]">
-        <span className="v5-link-line">About</span>
+      <Link href="/about" className="transition hover:text-[#8b7cff]">
+        <span className="v8-link-line">About</span>
       </Link>
-      <Link href="/contact" className="transition hover:text-[#ff4d00]">
-        <span className="v5-link-line">Contact</span>
+      <Link href="/contact" className="transition hover:text-[#8b7cff]">
+        <span className="v8-link-line">Contact</span>
       </Link>
     </>
   );
 
   return (
-    <header className="relative z-40 border-b border-[#2a2118]/15 bg-[#fdf6e3]">
+    <header className="relative z-40 border-b border-white/10 bg-[#070912]">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:h-[72px] lg:px-8">
         <Link
           href="/"
-          className="font-anta text-lg tracking-wide text-[#141412]"
+          className="font-anta text-lg tracking-wide text-[#f5f6ff]"
           aria-label="BuiltByUmer — home"
         >
-          Built<span className="text-[#ff4d00]">ByUmer</span>
-          <span className="align-super text-[10px] text-[#141412]/50">®</span>
+          Built<span className="text-[#8b7cff]">ByUmer</span>
+          <span className="align-super text-[10px] text-[#f5f6ff]/50">®</span>
         </Link>
 
         <nav
           aria-label="Main"
-          className="hidden items-center gap-7 text-sm font-medium text-[#141412]/75 md:flex"
+          className="hidden items-center gap-7 text-sm font-medium text-[#f5f6ff]/75 md:flex"
         >
           {nav}
         </nav>
@@ -56,7 +58,7 @@ export function SiteHeader() {
         <div className="flex items-center gap-3">
           <Link
             href="/tools"
-            className="group hidden items-center gap-1.5 rounded-full bg-[#141412] px-5 py-2.5 text-sm font-semibold text-white transition-colors duration-300 hover:bg-[#ff4d00] sm:inline-flex"
+            className="group hidden items-center gap-1.5 rounded-full bg-[#8b7cff] px-5 py-2.5 text-sm font-semibold text-[#070912] transition-colors duration-300 hover:bg-[#c5a6ff] sm:inline-flex"
           >
             Explore tools
             <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -64,7 +66,7 @@ export function SiteHeader() {
 
           <button
             type="button"
-            className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-[#141412] bg-white text-[#141412] md:hidden"
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/[0.03] text-[#f5f6ff] md:hidden"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileMenuOpen}
@@ -78,7 +80,7 @@ export function SiteHeader() {
       {mobileMenuOpen && (
         <nav
           aria-label="Mobile"
-          className="border-t border-[#141412]/15 bg-white px-5 py-4 md:hidden"
+          className="border-t border-white/10 bg-[#101525] px-5 py-4 md:hidden"
         >
           <div className="flex flex-col">
             {[
@@ -91,10 +93,10 @@ export function SiteHeader() {
                 key={href}
                 href={href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex items-baseline gap-4 border-b border-[#141412]/15 py-4 text-[#141412] last:border-b-0"
+                className="flex items-baseline gap-4 border-b border-white/10 py-4 text-[#f5f6ff] last:border-b-0"
                 style={{ minHeight: "44px" }}
               >
-                <span className="font-grotesk text-xs font-semibold text-[#ff4d00]">
+                <span className="font-grotesk text-xs font-semibold text-[#8b7cff]">
                   0{i + 1}
                 </span>
                 <span className="font-grotesk text-xl font-bold tracking-tight">
@@ -139,19 +141,19 @@ export function SiteFooter() {
   ];
 
   return (
-    <footer className="border-t border-white/10 bg-[#2a2118]">
-      {/* Slim closing CTA — echoes FooterV4 without repeating its giant block */}
+    <footer className="border-t border-white/10 bg-[#070912]">
+      {/* Slim closing CTA — echoes FooterV8 without repeating its giant block */}
       <div className="mx-auto max-w-7xl px-5 pt-14 sm:px-8">
-        <p className="v5-eyebrow">
-          <span className="text-[#ff4d00]">●</span> No account. No upload. No catch.
+        <p className="v8-eyebrow">
+          <span className="text-[#8b7cff]">●</span> No account. No upload. No catch.
         </p>
         <p className="mt-4 max-w-3xl font-anta text-3xl leading-[1.02] tracking-[0.01em] text-white sm:text-5xl">
           Stop hunting.{" "}
-          <span className="text-[#ff4d00]">Start doing.</span>
+          <span className="text-[#8b7cff]">Start doing.</span>
         </p>
         <Link
           href="/tools"
-          className="group mt-6 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-[#141412] transition-colors duration-300 hover:bg-[#ff4d00] hover:text-white"
+          className="group mt-6 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-[#070912] transition-colors duration-300 hover:bg-[#8b7cff]"
         >
           Open the toolbox
           <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -163,17 +165,17 @@ export function SiteFooter() {
           <div>
             <Link href="/" className="flex items-center gap-2.5">
               <svg width="24" height="26" viewBox="0 0 34 36" fill="none" aria-hidden>
-                <path d="M17 1 32 9.5v17L17 35 2 26.5v-17Z" stroke="#FF4D00" strokeWidth="2.4" />
+                <path d="M17 1 32 9.5v17L17 35 2 26.5v-17Z" stroke="#8B7CFF" strokeWidth="2.4" />
                 <path
                   d="M12 24V12h4.2a3 3 0 0 1 0 6h-4.2m0 0h4.6a3 3 0 0 1 0 6h-4.6"
-                  stroke="#F2EFE7"
+                  stroke="#F5F6FF"
                   strokeWidth="2.4"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 />
               </svg>
               <span className="font-anta text-base tracking-wide text-white">
-                Built<span className="text-[#ff4d00]">ByUmer</span>
+                Built<span className="text-[#8b7cff]">ByUmer</span>
               </span>
             </Link>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/55">
@@ -195,9 +197,9 @@ export function SiteFooter() {
                     <li key={href}>
                       <Link
                         href={href}
-                        className="text-white/80 transition-colors hover:text-[#ff4d00]"
+                        className="text-white/80 transition-colors hover:text-[#8b7cff]"
                       >
-                        <span className="v5-link-line">{label}</span>
+                        <span className="v8-link-line">{label}</span>
                       </Link>
                     </li>
                   ))}

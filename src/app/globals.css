@@ -1191,3 +1191,230 @@ html.js-anim .home-v7 [data-stagger-item] {
     transform: none !important;
   }
 }
+
+/* ══════════════════════════════════════════════════════════════
+   HOME V8 DESIGN SYSTEM — "Route 145: The Ultimate 3D Digital
+   Tool Universe" (master redesign, Phases 3–4, 2026-11-20).
+   Replaces the V7 cream/green/vermillion look. The ROUTE 145
+   journey identity — 10 stops, passport, map, road — is
+   PRESERVED as a concept; only the visual system is new.
+   Scoped to .home-v8 so the older .home-v2/…/.home-v7 systems
+   and the light inner tool pages are untouched.
+   Palette — EXACT, from the master prompt:
+     --v8-bg       #070912  dark cinematic background
+     --v8-bg-2     #101525  secondary background / raised surface
+     --v8-accent   #8B7CFF  primary accent (violet)
+     --v8-accent-2 #36D9FF  secondary accent (cyan)
+     --v8-highlight #C5A6FF highlight (soft lavender)
+     --v8-text     #F5F6FF  text
+     --v8-muted    #A3A9BD  muted text — 8.5:1 on --v8-bg (AAA)
+   Rules: CONTROLLED neon — glow only on the hero portal and
+   focal points, never on everything. Glass surfaces, fine 1px
+   low-alpha hairlines, sophisticated shadows. No generic
+   dashboard look.
+   Type — TWO faces only: Anta (display, --font-anta) + Space
+   Grotesk (body, --font-grotesk). The V7 script voice (Caveat)
+   is deliberately retired here: nicknames are set in italic
+   Space Grotesk instead, keeping the two-face discipline.
+   Motion: GSAP + Lenis, transform/opacity only. All initial
+   hidden states live under html.js-anim (set pre-paint by the
+   inline script in layout.tsx), so content stays visible with
+   JS disabled or reduced motion.
+   ══════════════════════════════════════════════════════════════ */
+:root {
+  --v8-bg: #070912;
+  --v8-bg-2: #101525;
+  --v8-accent: #8b7cff;
+  --v8-accent-2: #36d9ff;
+  --v8-highlight: #c5a6ff;
+  --v8-text: #f5f6ff;
+  --v8-muted: #a3a9bd;
+  --v8-line: rgba(245, 246, 255, 0.12);
+  --v8-line-strong: rgba(245, 246, 255, 0.22);
+}
+
+@theme {
+  --color-v8-bg: #070912;
+  --color-v8-bg-2: #101525;
+  --color-v8-accent: #8b7cff;
+  --color-v8-accent-2: #36d9ff;
+  --color-v8-highlight: #c5a6ff;
+  --color-v8-text: #f5f6ff;
+  --color-v8-muted: #a3a9bd;
+}
+
+.home-v8 {
+  background-color: var(--v8-bg);
+  color: var(--v8-text);
+  font-family: var(--font-grotesk), system-ui, sans-serif;
+  overflow-x: clip;
+}
+
+.home-v8 ::selection {
+  background: var(--v8-accent);
+  color: var(--v8-bg);
+}
+
+.home-v8 a:focus-visible,
+.home-v8 button:focus-visible,
+.home-v8 input:focus-visible {
+  outline: 2px solid var(--v8-accent-2);
+  outline-offset: 3px;
+}
+
+/* ── Glass panels ──────────────────────────────────────── */
+/* Frosted dark glass: the default card surface. Use over the
+   3D hero and the map; plain --v8-bg-2 fills are for sections
+   that need a flat, quiet surface instead. */
+.v8-glass {
+  background: rgba(16, 21, 37, 0.62);
+  border: 1px solid var(--v8-line);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+.v8-glass-soft {
+  background: rgba(245, 246, 255, 0.04);
+  border: 1px solid var(--v8-line);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* ── Hairline ──────────────────────────────────────────── */
+.v8-hairline {
+  border-color: var(--v8-line);
+}
+
+/* ── Eyebrow label ─────────────────────────────────────── */
+.v8-eyebrow {
+  font-family: var(--font-grotesk), system-ui, sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--v8-muted);
+}
+.v8-eyebrow .v8-dot {
+  color: var(--v8-accent);
+}
+
+/* ── Outlined display text (footer wordmark) ───────────── */
+.v8-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(245, 246, 255, 0.22);
+}
+
+/* ── Underline reveal for inline links ─────────────────── */
+.v8-link-line {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  transition: background-size 0.45s cubic-bezier(0.65, 0, 0.35, 1);
+  padding-bottom: 2px;
+}
+.v8-link-line:hover,
+a:hover > .v8-link-line {
+  background-size: 100% 1px;
+}
+
+/* ── Buttons ───────────────────────────────────────────── */
+/* Primary: violet fill, near-black text (≈6:1, AA). Secondary:
+   transparent with a hairline border. Never a gradient fill. */
+.v8-btn-primary {
+  background: var(--v8-accent);
+  color: var(--v8-bg);
+}
+.v8-btn-primary:hover {
+  background: var(--v8-highlight);
+}
+.v8-btn-ghost {
+  border: 1px solid var(--v8-line-strong);
+  color: var(--v8-text);
+  background: transparent;
+}
+.v8-btn-ghost:hover {
+  border-color: var(--v8-accent);
+  color: var(--v8-highlight);
+}
+
+/* ── Hero kinetic headline ─────────────────────────────── */
+/* Hidden only when JS is present (layout adds .js-anim
+   pre-paint), so the headline stays visible with JS disabled
+   or reduced motion. Transform-only rise — no opacity on the
+   headline itself, so it paints from the server HTML. */
+html.js-anim .v8-hero-line {
+  transform: translateY(112%);
+}
+html.js-anim .v8-hero-fade {
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+/* ── Scroll reveals ────────────────────────────────────── */
+html.js-anim .v8-reveal {
+  opacity: 0;
+  transform: translateY(32px);
+}
+html.js-anim .home-v8 [data-stagger-item] {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+/* ── Portal glow pulse (hero focal point ONLY) ─────────── */
+@keyframes v8-portal-pulse {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 0.95; }
+}
+.v8-portal-pulse {
+  animation: v8-portal-pulse 4.5s ease-in-out infinite;
+}
+
+/* ── Slow spin for badges / scroll cues ────────────────── */
+@keyframes v8-spin-slow {
+  to { transform: rotate(360deg); }
+}
+.v8-spin-slow {
+  animation: v8-spin-slow 16s linear infinite;
+}
+
+/* ── Route line wipe ───────────────────────────────────── */
+@keyframes v8-wipe {
+  from { transform: scaleX(0); opacity: 0; }
+  to { transform: scaleX(1); opacity: 1; }
+}
+.v8-route-draw {
+  transform-box: fill-box;
+  transform-origin: left center;
+  animation: v8-wipe 1.6s ease-out 0.5s both;
+}
+
+/* ── Scroll hint chevrons ──────────────────────────────── */
+@keyframes v8-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(5px); }
+}
+.v8-bounce {
+  animation: v8-bounce 1.6s ease-in-out infinite;
+}
+
+/* ── Faint topo contour texture for dark section backs ─── */
+.v8-topo-bg {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><g fill='none' stroke='%23f5f6ff' stroke-opacity='0.05' stroke-width='1.2'><ellipse cx='130' cy='130' rx='34' ry='26'/><ellipse cx='130' cy='130' rx='62' ry='48'/><ellipse cx='130' cy='130' rx='92' ry='72'/><ellipse cx='130' cy='130' rx='122' ry='96'/><ellipse cx='130' cy='130' rx='152' ry='120'/></g></svg>");
+}
+
+/* ── Reduced motion: everything lands in its final state ── */
+@media (prefers-reduced-motion: reduce) {
+  .v8-hero-line,
+  .v8-hero-fade,
+  .v8-reveal,
+  .home-v8 [data-stagger-item] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .v8-portal-pulse,
+  .v8-spin-slow,
+  .v8-route-draw,
+  .v8-bounce {
+    animation: none !important;
+  }
+}
