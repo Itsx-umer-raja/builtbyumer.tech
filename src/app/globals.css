@@ -674,3 +674,208 @@ html.js-anim .v3-reveal {
     animation: none !important;
   }
 }
+
+/* ══════════════════════════════════════════════════════════════
+   HOME V4 DESIGN SYSTEM — "BuiltByUmer, cinematic"
+   Pure-black Synthora-style system. Scoped to .home-v4 so the
+   light v3 pages and dark .home-v2 components are untouched.
+   The molten-orange ring is real media (MotionSites Synthora
+   glow plate + 4s loop) — nothing in the glow is drawn or
+   animated in code; the floor gradient under it is part of the
+   Synthora spec. The .home-v4 wrapper is opaque black, so the
+   body's light paper texture never shows through here.
+   Palette:
+     --v4-bg      #000000  pure black page
+     --v4-surface rgba(255,255,255,.04)  ember glass card
+     --v4-ink     #ffffff  white text
+     --v4-muted   rgba(255,255,255,.6)   secondary text
+     --v4-accent  #FF4D00  vermillion (the ONLY accent)
+     --v4-ember   #FF9646  ember highlight
+     --v4-sun     #FAD53E  sun yellow (badge icon, marquee ✦)
+     --v4-line    rgba(255,255,255,.12)
+   Type: Anta (futuristic rounded display) + Space Grotesk
+   (grotesque sans) + JetBrains Mono (labels / numbers).
+   Motion: GSAP + Lenis, transform/opacity only. All initial
+   hidden states live under html.js-anim (set pre-paint by the
+   inline script in layout.tsx), so content stays visible with
+   JS disabled or reduced motion.
+   ══════════════════════════════════════════════════════════════ */
+:root {
+  --v4-bg: #000000;
+  --v4-surface: rgba(255, 255, 255, 0.04);
+  --v4-ink: #ffffff;
+  --v4-muted: rgba(255, 255, 255, 0.6);
+  --v4-accent: #ff4d00;
+  --v4-ember: #ff9646;
+  --v4-sun: #fad53e;
+  --v4-line: rgba(255, 255, 255, 0.12);
+  --v4-line-strong: rgba(255, 255, 255, 0.22);
+}
+
+@theme {
+  --color-v4-bg: #000000;
+  --color-v4-surface: rgba(255, 255, 255, 0.04);
+  --color-v4-ink: #ffffff;
+  --color-v4-muted: rgba(255, 255, 255, 0.6);
+  --color-v4-accent: #ff4d00;
+  --color-v4-ember: #ff9646;
+  --color-v4-sun: #fad53e;
+  --color-v4-line: rgba(255, 255, 255, 0.12);
+  --color-v4-line-strong: rgba(255, 255, 255, 0.22);
+  --font-anta: var(--font-anta), "Space Grotesk", system-ui, sans-serif;
+}
+
+.home-v4 {
+  background-color: #000000;
+  color: var(--v4-ink);
+  font-family: var(--font-grotesk), system-ui, sans-serif;
+  overflow-x: clip;
+}
+
+.home-v4 ::selection {
+  background: var(--v4-accent);
+  color: #fff;
+}
+
+.home-v4 a:focus-visible,
+.home-v4 button:focus-visible,
+.home-v4 input:focus-visible {
+  outline: 2px solid var(--v4-ember);
+  outline-offset: 3px;
+}
+
+/* Ember glass — badge, buttons, cards */
+.v4-glass {
+  background: rgba(255, 150, 70, 0.2);
+  border: 1px solid rgba(255, 150, 70, 0.25);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.v4-glass-soft {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Outlined display text (footer wordmark) */
+.v4-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.22);
+}
+
+/* Mono eyebrow label */
+.v4-eyebrow {
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--v4-muted);
+}
+.v4-eyebrow .v4-dot {
+  color: var(--v4-accent);
+}
+
+/* Underline reveal for inline links */
+.v4-link-line {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  transition: background-size 0.45s cubic-bezier(0.65, 0, 0.35, 1);
+  padding-bottom: 2px;
+}
+.v4-link-line:hover,
+a:hover > .v4-link-line {
+  background-size: 100% 1px;
+}
+
+/* ── Synthora glow (real media, never drawn in code) ───────── */
+/* Reference stage 906×515; scales with the viewport like the
+   Synthora prompt's --p unit, pinned to the bottom edge. */
+.v4-glow {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1480px, 165vw);
+  aspect-ratio: 906 / 515;
+  pointer-events: none;
+}
+@media (max-width: 640px) {
+  .v4-glow {
+    width: 195vw;
+  }
+}
+/* The loop fades in (0.8s) once its first frame is ready. */
+.v4-glow-video {
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+.v4-glow-video.is-ready {
+  opacity: 1;
+}
+
+/* ── Hero entrance (GSAP drives these; CSS only sets the
+   initial state under html.js-anim, so the headline paints
+   from the server HTML and stays visible without JS) ─────── */
+html.js-anim .v4-nav {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+html.js-anim .v4-badge {
+  transform: scaleX(0);
+}
+html.js-anim .v4-hero-line {
+  transform: translateY(112%);
+}
+html.js-anim .v4-hero-fade {
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+/* ── Scroll reveals ────────────────────────────────────── */
+html.js-anim .v4-reveal {
+  opacity: 0;
+  transform: translateY(32px);
+}
+
+/* ── Marquee ───────────────────────────────────────────── */
+@keyframes v4-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.v4-marquee-track {
+  animation: v4-marquee 32s linear infinite;
+  will-change: transform;
+}
+.v4-marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* ── Slow spin for the hero scroll cue ─────────────────── */
+@keyframes v4-spin-slow {
+  to { transform: rotate(360deg); }
+}
+.v4-spin-slow {
+  animation: v4-spin-slow 14s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v4-nav,
+  .v4-badge,
+  .v4-hero-line,
+  .v4-hero-fade,
+  .v4-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .v4-marquee-track,
+  .v4-spin-slow {
+    animation: none !important;
+  }
+  .v4-glow-video {
+    transition: none;
+  }
+}
