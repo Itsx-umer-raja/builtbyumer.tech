@@ -7,48 +7,48 @@ import { TOOLS } from "@/data/tools";
 import { SITE } from "@/data/site";
 
 /**
- * Shared chrome for every non-homepage route. Restyled dark again
- * (Stage 4, Home V4) to match the new cinematic black homepage:
- * near-black background, off-white text, vermillion accent.
+ * Shared chrome for every non-homepage route. Restyled into the
+ * Home V5 three-colour system (Stage 5): paper header, ink black
+ * footer, vermillion accent — nothing else.
  * Header is deliberately NOT sticky: the global mobile CSS forces
  * overflow-x:hidden, which breaks position:sticky. Homepage keeps
- * its own HeaderV4/FooterV4.
+ * its own HeaderV5/FooterV5.
  */
 export function SiteHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const nav = (
     <>
-      <Link href="/tools" className="transition hover:text-hv-accent">
-        <span className="hv-link-line">All Tools</span>
+      <Link href="/tools" className="transition hover:text-[#ff4d00]">
+        <span className="v5-link-line">All Tools</span>
       </Link>
-      <Link href="/portfolio" className="transition hover:text-hv-accent">
-        <span className="hv-link-line">Portfolio</span>
+      <Link href="/portfolio" className="transition hover:text-[#ff4d00]">
+        <span className="v5-link-line">Portfolio</span>
       </Link>
-      <Link href="/about" className="transition hover:text-hv-accent">
-        <span className="hv-link-line">About</span>
+      <Link href="/about" className="transition hover:text-[#ff4d00]">
+        <span className="v5-link-line">About</span>
       </Link>
-      <Link href="/contact" className="transition hover:text-hv-accent">
-        <span className="hv-link-line">Contact</span>
+      <Link href="/contact" className="transition hover:text-[#ff4d00]">
+        <span className="v5-link-line">Contact</span>
       </Link>
     </>
   );
 
   return (
-    <header className="relative z-40 border-b border-hv-line bg-hv-bg">
+    <header className="relative z-40 border-b border-[#141412]/15 bg-[#faf8f2]">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:h-[72px] lg:px-8">
         <Link
           href="/"
-          className="font-grotesk text-lg font-bold tracking-tight text-hv-ink"
+          className="font-anta text-lg tracking-wide text-[#141412]"
           aria-label="BuiltByUmer — home"
         >
-          Built<span className="text-hv-accent">ByUmer</span>
-          <span className="align-super text-[10px] text-hv-muted">®</span>
+          Built<span className="text-[#ff4d00]">ByUmer</span>
+          <span className="align-super text-[10px] text-[#141412]/50">®</span>
         </Link>
 
         <nav
           aria-label="Main"
-          className="hidden items-center gap-7 text-sm font-medium text-hv-ink/75 md:flex"
+          className="hidden items-center gap-7 text-sm font-medium text-[#141412]/75 md:flex"
         >
           {nav}
         </nav>
@@ -56,7 +56,7 @@ export function SiteHeader() {
         <div className="flex items-center gap-3">
           <Link
             href="/tools"
-            className="group hidden items-center gap-1.5 rounded-full bg-hv-ink px-5 py-2.5 text-sm font-semibold text-hv-bg transition-colors duration-300 hover:bg-hv-accent hover:text-hv-ink sm:inline-flex"
+            className="group hidden items-center gap-1.5 rounded-full bg-[#141412] px-5 py-2.5 text-sm font-semibold text-white transition-colors duration-300 hover:bg-[#ff4d00] sm:inline-flex"
           >
             Explore tools
             <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -64,7 +64,7 @@ export function SiteHeader() {
 
           <button
             type="button"
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-hv-line-strong text-hv-ink md:hidden"
+            className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-[#141412] bg-white text-[#141412] md:hidden"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileMenuOpen}
@@ -78,7 +78,7 @@ export function SiteHeader() {
       {mobileMenuOpen && (
         <nav
           aria-label="Mobile"
-          className="border-t border-hv-line bg-hv-bg-2 px-5 py-4 md:hidden"
+          className="border-t border-[#141412]/15 bg-white px-5 py-4 md:hidden"
         >
           <div className="flex flex-col">
             {[
@@ -91,10 +91,10 @@ export function SiteHeader() {
                 key={href}
                 href={href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex items-baseline gap-4 border-b border-hv-line py-4 text-hv-ink last:border-b-0"
+                className="flex items-baseline gap-4 border-b border-[#141412]/15 py-4 text-[#141412] last:border-b-0"
                 style={{ minHeight: "44px" }}
               >
-                <span className="font-mono text-xs text-hv-accent">
+                <span className="font-grotesk text-xs font-semibold text-[#ff4d00]">
                   0{i + 1}
                 </span>
                 <span className="font-grotesk text-xl font-bold tracking-tight">
@@ -139,21 +139,19 @@ export function SiteFooter() {
   ];
 
   return (
-    <footer className="border-t border-hv-line bg-hv-bg">
+    <footer className="border-t border-white/10 bg-[#141412]">
       {/* Slim closing CTA — echoes FooterV4 without repeating its giant block */}
       <div className="mx-auto max-w-7xl px-5 pt-14 sm:px-8">
-        <p className="hv-eyebrow">
-          <span className="hv-dot">●</span> No account. No upload. No catch.
+        <p className="v5-eyebrow">
+          <span className="text-[#ff4d00]">●</span> No account. No upload. No catch.
         </p>
-        <p className="mt-4 max-w-3xl font-grotesk text-3xl font-bold leading-[1.02] tracking-tight text-hv-ink sm:text-5xl">
+        <p className="mt-4 max-w-3xl font-anta text-3xl leading-[1.02] tracking-[0.01em] text-white sm:text-5xl">
           Stop hunting.{" "}
-          <em className="font-fraunces font-medium italic text-hv-accent">
-            Start doing.
-          </em>
+          <span className="text-[#ff4d00]">Start doing.</span>
         </p>
         <Link
           href="/tools"
-          className="group mt-6 inline-flex items-center gap-2 rounded-full bg-hv-accent px-6 py-3 text-sm font-semibold text-hv-ink transition-colors duration-300 hover:bg-hv-accent-2"
+          className="group mt-6 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-[#141412] transition-colors duration-300 hover:bg-[#ff4d00] hover:text-white"
         >
           Open the toolbox
           <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -161,7 +159,7 @@ export function SiteFooter() {
       </div>
 
       <div className="mx-auto max-w-7xl px-5 py-12 sm:px-8">
-        <div className="grid gap-10 border-t border-hv-line pt-12 md:grid-cols-[1.2fr_2fr]">
+        <div className="grid gap-10 border-t border-white/10 pt-12 md:grid-cols-[1.2fr_2fr]">
           <div>
             <Link href="/" className="flex items-center gap-2.5">
               <svg width="24" height="26" viewBox="0 0 34 36" fill="none" aria-hidden>
@@ -174,11 +172,11 @@ export function SiteFooter() {
                   strokeLinejoin="round"
                 />
               </svg>
-              <span className="font-grotesk text-base font-bold tracking-tight text-hv-ink">
-                Built<span className="text-hv-accent">ByUmer</span>
+              <span className="font-anta text-base tracking-wide text-white">
+                Built<span className="text-[#ff4d00]">ByUmer</span>
               </span>
             </Link>
-            <p className="mt-4 max-w-xs text-sm leading-relaxed text-hv-muted">
+            <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/55">
               Every tool. One destination.
               <br />
               {TOOLS.length} free utilities that run entirely in your browser — nothing uploaded,
@@ -189,7 +187,7 @@ export function SiteFooter() {
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
             {cols.map(([title, links]) => (
               <div key={title}>
-                <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-hv-muted">
+                <p className="font-grotesk text-[11px] font-semibold uppercase tracking-[0.2em] text-white/50">
                   {title}
                 </p>
                 <ul className="mt-4 space-y-2.5 text-sm font-medium">
@@ -197,9 +195,9 @@ export function SiteFooter() {
                     <li key={href}>
                       <Link
                         href={href}
-                        className="text-hv-ink/80 transition-colors hover:text-hv-accent"
+                        className="text-white/80 transition-colors hover:text-[#ff4d00]"
                       >
-                        <span className="hv-link-line">{label}</span>
+                        <span className="v5-link-line">{label}</span>
                       </Link>
                     </li>
                   ))}
@@ -209,9 +207,9 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-10 flex flex-col items-start justify-between gap-3 border-t border-hv-line pt-6 text-xs text-hv-muted sm:flex-row sm:items-center">
+        <div className="mt-10 flex flex-col items-start justify-between gap-3 border-t border-white/10 pt-6 text-xs text-white/50 sm:flex-row sm:items-center">
           <p>© {SITE.year} Umer Raja · {SITE.name} · {SITE.domain} — All rights reserved. Processed locally in your browser.</p>
-          <p className="font-semibold text-hv-ink/80">Free · Private · Instant</p>
+          <p className="font-semibold text-white/80">Free · Private · Instant</p>
         </div>
       </div>
     </footer>

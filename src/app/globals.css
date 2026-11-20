@@ -908,3 +908,142 @@ html.js-anim .v4-stagger-item {
     transition: none;
   }
 }
+
+/* ══════════════════════════════════════════════════════════════
+   Home V5 design system — editorial paper homepage with a
+   Three.js 3D toolbox hero (user's V5 brief, 2026-11-20).
+   Scoped to .home-v5 so the older .home-v2/.home-v3/.home-v4
+   systems are untouched.
+   Palette — exactly three core colours, nothing else:
+     --v5-paper   #FAF8F2  paper white page (grain shows through)
+     --v5-ink     #141412  near-black ink text / surfaces
+     --v5-accent  #FF4D00  vermillion (the ONLY accent; tints of
+                            it are used as opacities, never a
+                            fourth hue)
+   Type — TWO faces only: Anta (bold display) + Space Grotesk
+   (clean body). No mono face here; index labels use grotesk
+   with tracking.
+   Motion: GSAP + Lenis, transform/opacity only. All initial
+   hidden states live under html.js-anim (set pre-paint by the
+   inline script in layout.tsx), so content stays visible with
+   JS disabled or reduced motion. The 3D canvas is lazy-loaded
+   and paused offscreen; reduced motion never mounts it.
+   ══════════════════════════════════════════════════════════════ */
+:root {
+  --v5-paper: #faf8f2;
+  --v5-ink: #141412;
+  --v5-accent: #ff4d00;
+  --v5-muted: rgba(20, 20, 18, 0.6);
+  --v5-line: rgba(20, 20, 18, 0.15);
+}
+
+@theme {
+  --color-v5-paper: #faf8f2;
+  --color-v5-ink: #141412;
+  --color-v5-accent: #ff4d00;
+  --color-v5-muted: rgba(20, 20, 18, 0.6);
+  --color-v5-line: rgba(20, 20, 18, 0.15);
+}
+
+.home-v5 {
+  /* Translucent so the body's ResourceBoy paper grain shows through */
+  background-color: rgba(250, 248, 242, 0.92);
+  color: var(--v5-ink);
+  font-family: var(--font-grotesk), system-ui, sans-serif;
+  overflow-x: clip;
+}
+
+.home-v5 ::selection {
+  background: var(--v5-accent);
+  color: #fff;
+}
+
+.home-v5 a:focus-visible,
+.home-v5 button:focus-visible,
+.home-v5 input:focus-visible {
+  outline: 2px solid var(--v5-accent);
+  outline-offset: 3px;
+}
+
+/* Outlined display text (footer wordmark, on ink) */
+.v5-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.28);
+}
+
+/* Grotesk eyebrow label */
+.v5-eyebrow {
+  font-family: var(--font-grotesk), system-ui, sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--v5-muted);
+}
+footer .v5-eyebrow {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* Underline reveal for inline links */
+.v5-link-line {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  transition: background-size 0.45s cubic-bezier(0.65, 0, 0.35, 1);
+  padding-bottom: 2px;
+}
+.v5-link-line:hover,
+a:hover > .v5-link-line {
+  background-size: 100% 1px;
+}
+
+/* ── Hero kinetic headline ─────────────────────────────── */
+/* Hidden only when JS is present (layout adds .js-anim pre-paint),
+   so the headline stays visible with JS disabled or reduced motion.
+   Transform-only rise — no opacity on the headline itself, so it
+   paints from the server HTML and rises immediately on mount. */
+html.js-anim .v5-hero-line {
+  transform: translateY(112%);
+}
+html.js-anim .v5-hero-fade {
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+/* ── Scroll reveals ────────────────────────────────────── */
+html.js-anim .v5-reveal {
+  opacity: 0;
+  transform: translateY(32px);
+}
+html.js-anim [data-stagger-item] {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+/* ── Marquee ───────────────────────────────────────────── */
+@keyframes v5-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.v5-marquee-track {
+  animation: v5-marquee 32s linear infinite;
+}
+.v5-marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* ── Reduced motion: everything lands in its final state ── */
+@media (prefers-reduced-motion: reduce) {
+  .v5-nav,
+  .v5-hero-line,
+  .v5-hero-fade,
+  .v5-reveal,
+  [data-stagger-item] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .v5-marquee-track {
+    animation: none !important;
+  }
+}
