@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" fill="none">
+  <defs>
+    <linearGradient id="netbg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fcfcfc"/>
+      <stop offset="1" stop-color="#e8ebe9"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#netbg)"/>
+  <!-- wireframe globe -->
+  <g transform="translate(400 300)" stroke="#111111" stroke-width="2.5" fill="none">
+    <circle r="190" stroke-opacity="0.85"/>
+    <ellipse rx="190" ry="70" stroke-opacity="0.3"/>
+    <ellipse rx="190" ry="130" stroke-opacity="0.3"/>
+    <ellipse rx="70" ry="190" stroke-opacity="0.3"/>
+    <ellipse rx="130" ry="190" stroke-opacity="0.3"/>
+    <path d="M-190 0 H190" stroke-opacity="0.3"/>
+  </g>
+  <!-- nodes -->
+  <g>
+    <circle cx="400" cy="110" r="10" fill="#163D2B"/>
+    <circle cx="245" cy="205" r="8" fill="#111111" fill-opacity="0.7"/>
+    <circle cx="565" cy="185" r="9" fill="#163D2B"/>
+    <circle cx="185" cy="360" r="8" fill="#111111" fill-opacity="0.6"/>
+    <circle cx="625" cy="330" r="8" fill="#C6F35C" stroke="#163D2B" stroke-width="2"/>
+    <circle cx="330" cy="475" r="9" fill="#111111" fill-opacity="0.7"/>
+    <circle cx="500" cy="480" r="8" fill="#163D2B" fill-opacity="0.8"/>
+  </g>
+  <!-- connections -->
+  <g stroke="#163D2B" stroke-width="2" stroke-opacity="0.5" fill="none">
+    <path d="M400 110 245 205 185 360"/>
+    <path d="M400 110 565 185 625 330"/>
+    <path d="M245 205 400 300 625 330"/>
+    <path d="M185 360 330 475 500 480"/>
+    <path d="M330 475 400 300 565 185"/>
+  </g>
+  <circle cx="120" cy="100" r="6" fill="#C6F35C"/>
+  <circle cx="700" cy="520" r="5" fill="#111111" fill-opacity="0.3"/>
+</svg>

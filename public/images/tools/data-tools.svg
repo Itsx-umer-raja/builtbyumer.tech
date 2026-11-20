@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" fill="none">
+  <defs>
+    <linearGradient id="databg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fcfcfc"/>
+      <stop offset="1" stop-color="#e8ebe9"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#databg)"/>
+  <!-- back: db cylinder + folders -->
+  <g transform="translate(470 128) rotate(8)">
+    <rect width="200" height="300" rx="12" fill="#ffffff" stroke="#111111" stroke-opacity="0.12" stroke-width="2"/>
+    <path d="M28 60c0 14 32 26 72 26s72-12 72-26" stroke="#111111" stroke-opacity="0.2" stroke-width="6"/>
+    <ellipse cx="100" cy="48" rx="72" ry="22" fill="#eef1ee" stroke="#111111" stroke-width="2.5"/>
+    <path d="M28 48v120c0 14 32 26 72 26s72-12 72-26V48" stroke="#111111" stroke-opacity="0.35" stroke-width="6"/>
+    <path d="M28 108v96c0 14 32 26 72 26s72-12 72-26v-96" stroke="#111111" stroke-opacity="0.2" stroke-width="6"/>
+    <circle cx="152" cy="238" r="16" fill="#C6F35C" stroke="#111111" stroke-width="2.5"/>
+    <path d="M145 238l6 6 10-11" stroke="#163D2B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <g transform="translate(152 148) rotate(-8)">
+    <rect width="230" height="150" rx="12" fill="#ffffff" stroke="#111111" stroke-opacity="0.12" stroke-width="2"/>
+    <g stroke="#111111" stroke-opacity="0.18" stroke-width="8" stroke-linecap="round">
+      <path d="M28 116v-52M62 116V40M96 116V72M130 116V56M164 116V84"/>
+    </g>
+    <g stroke="#163D2B" stroke-width="8" stroke-linecap="round">
+      <path d="M196 116V30"/>
+    </g>
+    <path d="M24 116h186" stroke="#111111" stroke-opacity="0.3" stroke-width="4" stroke-linecap="round"/>
+  </g>
+  <!-- main: spreadsheet card -->
+  <g transform="translate(262 150)">
+    <rect width="280" height="316" rx="14" fill="#ffffff" stroke="#111111" stroke-width="3"/>
+    <g stroke="#111111" stroke-opacity="0.16" stroke-width="2">
+      <path d="M0 58h280M0 106h280M0 154h280M0 202h280M0 250h280M70 0v316M140 0v316M210 0v316"/>
+    </g>
+    <rect x="70" y="106" width="70" height="48" fill="#C6F35C" fill-opacity="0.85"/>
+    <rect x="140" y="154" width="70" height="48" fill="#163D2B" fill-opacity="0.8"/>
+    <rect x="210" y="106" width="70" height="48" fill="#163D2B" fill-opacity="0.35"/>
+    <path d="M18 30h52M84 30h40M150 30h56M218 30h40" stroke="#111111" stroke-opacity="0.45" stroke-width="7" stroke-linecap="round"/>
+    <path d="M14 128h44M84 128h44M154 128h44M224 128h44" stroke="#111111" stroke-opacity="0.22" stroke-width="7" stroke-linecap="round"/>
+    <path d="M14 176h44M84 176h44M154 176h44M224 176h44" stroke="#111111" stroke-opacity="0.22" stroke-width="7" stroke-linecap="round"/>
+    <path d="M30 288h90" stroke="#163D2B" stroke-opacity="0.6" stroke-width="9" stroke-linecap="round"/>
+  </g>
+  <circle cx="120" cy="486" r="5" fill="#163D2B" fill-opacity="0.5"/>
+  <circle cx="706" cy="96" r="7" fill="#C6F35C"/>
+  <circle cx="676" cy="510" r="4" fill="#111111" fill-opacity="0.3"/>
+</svg>

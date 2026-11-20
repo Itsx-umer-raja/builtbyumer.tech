@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" fill="none">
+  <defs>
+    <linearGradient id="qrbg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fcfcfc"/>
+      <stop offset="1" stop-color="#e8ebe9"/>
+    </linearGradient>
+    <pattern id="qrdots" width="24" height="24" patternUnits="userSpaceOnUse">
+      <rect width="24" height="24" fill="#ffffff"/>
+      <rect x="0" y="0" width="12" height="12" fill="#111111"/>
+      <rect x="12" y="12" width="12" height="6" fill="#111111"/>
+    </pattern>
+  </defs>
+  <rect width="800" height="600" fill="url(#qrbg)"/>
+  <!-- large QR tile -->
+  <g transform="translate(230 80)">
+    <rect width="340" height="340" rx="16" fill="#ffffff" stroke="#111111" stroke-width="3"/>
+    <rect x="26" y="26" width="288" height="288" fill="url(#qrdots)"/>
+    <!-- finder patterns -->
+    <g fill="#111111">
+      <rect x="26" y="26" width="84" height="84"/>
+      <rect x="230" y="26" width="84" height="84"/>
+      <rect x="26" y="230" width="84" height="84"/>
+    </g>
+    <g fill="#ffffff">
+      <rect x="40" y="40" width="56" height="56"/>
+      <rect x="244" y="40" width="56" height="56"/>
+      <rect x="40" y="244" width="56" height="56"/>
+    </g>
+    <g fill="#111111">
+      <rect x="54" y="54" width="28" height="28"/>
+      <rect x="258" y="54" width="28" height="28"/>
+      <rect x="54" y="258" width="28" height="28"/>
+    </g>
+    <!-- lime center -->
+    <rect x="128" y="128" width="84" height="84" rx="10" fill="#C6F35C"/>
+    <rect x="146" y="146" width="48" height="48" rx="6" fill="#163D2B"/>
+  </g>
+  <!-- scan line -->
+  <rect x="240" y="246" width="320" height="4" rx="2" fill="#163D2B" fill-opacity="0.55"/>
+  <!-- floating squares -->
+  <rect x="140" y="140" width="20" height="20" rx="4" fill="#163D2B" fill-opacity="0.55" transform="rotate(-12 150 150)"/>
+  <rect x="640" y="420" width="26" height="26" rx="5" fill="#C6F35C" transform="rotate(10 653 433)"/>
+  <rect x="620" y="110" width="16" height="16" rx="4" fill="#111111" fill-opacity="0.3" transform="rotate(18 628 118)"/>
+  <circle cx="120" cy="470" r="5" fill="#111111" fill-opacity="0.3"/>
+</svg>

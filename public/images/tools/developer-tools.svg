@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" fill="none">
+  <defs>
+    <linearGradient id="devbg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1a1a1a"/>
+      <stop offset="1" stop-color="#0a0a0a"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="#fcfcfc"/>
+  <!-- editor window -->
+  <g transform="translate(140 110)">
+    <rect width="520" height="380" rx="16" fill="url(#devbg)" stroke="#111111" stroke-width="2"/>
+    <!-- title bar -->
+    <rect x="2" y="2" width="516" height="44" rx="14" fill="#111111"/>
+    <circle cx="30" cy="24" r="7" fill="#888888"/>
+    <circle cx="54" cy="24" r="7" fill="#888888"/>
+    <circle cx="78" cy="24" r="7" fill="#C6F35C"/>
+    <!-- gutter -->
+    <g font-family="'JetBrains Mono', 'Courier New', monospace" font-size="18" fill="#888888">
+      <text x="24" y="92">1</text><text x="24" y="122">2</text><text x="24" y="152">3</text>
+      <text x="24" y="182">4</text><text x="24" y="212">5</text><text x="24" y="242">6</text>
+      <text x="24" y="272">7</text><text x="24" y="302">8</text>
+    </g>
+    <!-- code lines -->
+    <g font-family="'JetBrains Mono', 'Courier New', monospace" font-size="18">
+      <text x="56" y="92" fill="#ffffff">{ } <tspan fill="#888888">=</tspan> <tspan fill="#C6F35C">clean</tspan>();</text>
+      <text x="56" y="122" fill="#888888">const <tspan fill="#ffffff">tools</tspan> = [</text>
+      <text x="76" y="152" fill="#C6F35C">'pdf'</text><text x="136" y="152" fill="#888888">,</text>
+      <text x="76" y="182" fill="#C6F35C">'image'</text><text x="152" y="182" fill="#888888">,</text>
+      <text x="76" y="212" fill="#C6F35C">'qr'</text><text x="122" y="212" fill="#888888">,</text>
+      <text x="56" y="242" fill="#888888">];</text>
+      <text x="56" y="272" fill="#ffffff">tools.forEach(<tspan fill="#C6F35C">simplify</tspan>);</text>
+      <rect x="56" y="288" width="10" height="20" fill="#C6F35C"/>
+    </g>
+  </g>
+  <!-- floating braces -->
+  <text x="90" y="140" font-family="'JetBrains Mono', monospace" font-size="44" font-weight="500" fill="#163D2B" fill-opacity="0.8">{</text>
+  <text x="690" y="520" font-family="'JetBrains Mono', monospace" font-size="44" font-weight="500" fill="#163D2B" fill-opacity="0.8">}</text>
+  <circle cx="700" cy="110" r="6" fill="#C6F35C"/>
+  <circle cx="100" cy="500" r="5" fill="#111111" fill-opacity="0.3"/>
+</svg>

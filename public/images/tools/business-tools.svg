@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" fill="none">
+  <defs>
+    <linearGradient id="bizbg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fcfcfc"/>
+      <stop offset="1" stop-color="#e8ebe9"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#bizbg)"/>
+  <!-- back: chart board + coins -->
+  <g transform="translate(455 122) rotate(9)">
+    <rect width="230" height="290" rx="12" fill="#ffffff" stroke="#111111" stroke-opacity="0.12" stroke-width="2"/>
+    <g stroke="#111111" stroke-opacity="0.16" stroke-width="2">
+      <path d="M24 70h182M24 118h182M24 166h182M24 214h182"/>
+    </g>
+    <path d="M24 214L70 168l44 30 44-66 44-24" stroke="#163D2B" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="202" cy="108" r="9" fill="#C6F35C" stroke="#111111" stroke-width="2.5"/>
+  </g>
+  <g transform="translate(150 160) rotate(-10)">
+    <ellipse cx="60" cy="86" rx="34" ry="12" fill="#eef1ee" stroke="#111111" stroke-width="2.5"/>
+    <path d="M26 86v26c0 7 15 12 34 12s34-5 34-12V86" stroke="#111111" stroke-opacity="0.4" stroke-width="3"/>
+    <ellipse cx="60" cy="52" rx="34" ry="12" fill="#C6F35C" stroke="#111111" stroke-width="2.5"/>
+    <ellipse cx="128" cy="98" rx="26" ry="9" fill="#eef1ee" stroke="#111111" stroke-width="2.5"/>
+    <path d="M102 98v20c0 6 12 9 26 9s26-3 26-9V98" stroke="#111111" stroke-opacity="0.35" stroke-width="3"/>
+    <ellipse cx="128" cy="72" rx="26" ry="9" fill="#ffffff" stroke="#111111" stroke-width="2.5"/>
+    <text x="55" y="57" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="900" fill="#163D2B">$</text>
+    <text x="123" y="77" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="900" fill="#111111" fill-opacity="0.5">$</text>
+  </g>
+  <!-- main: invoice card -->
+  <g transform="translate(262 140)">
+    <rect width="272" height="330" rx="14" fill="#ffffff" stroke="#111111" stroke-width="3"/>
+    <path d="M0 0h272v250l-34 24-34-20-34 22-34-20-34 22-34-20-34 22-34-20-34 22V0Z" fill="#ffffff" stroke="#111111" stroke-width="3" stroke-linejoin="round" transform="translate(0 0) scale(1 1)"/>
+    <path d="M28 52h120M28 76h86" stroke="#111111" stroke-opacity="0.35" stroke-width="9" stroke-linecap="round"/>
+    <g stroke="#111111" stroke-opacity="0.18" stroke-width="8" stroke-linecap="round">
+      <path d="M28 116h216M28 142h180M28 168h204M28 194h156"/>
+    </g>
+    <rect x="176" y="222" width="66" height="34" rx="8" fill="#C6F35C" stroke="#111111" stroke-width="2.5"/>
+    <text x="209" y="245" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="900" fill="#163D2B" text-anchor="middle">$0</text>
+    <rect x="28" y="266" width="120" height="40" rx="20" fill="#163D2B"/>
+    <text x="88" y="291" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#eef1ee" text-anchor="middle" letter-spacing="1">INVOICE</text>
+  </g>
+  <circle cx="122" cy="492" r="5" fill="#163D2B" fill-opacity="0.5"/>
+  <circle cx="708" cy="90" r="7" fill="#C6F35C"/>
+  <circle cx="678" cy="512" r="4" fill="#111111" fill-opacity="0.3"/>
+</svg>

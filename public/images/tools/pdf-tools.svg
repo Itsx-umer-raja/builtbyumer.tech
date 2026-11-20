@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" fill="none">
+  <defs>
+    <linearGradient id="pdfbg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fcfcfc"/>
+      <stop offset="1" stop-color="#e8ebe9"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#pdfbg)"/>
+  <!-- back sheets -->
+  <g transform="translate(430 120) rotate(6)">
+    <rect width="240" height="320" rx="12" fill="#ffffff" stroke="#111111" stroke-opacity="0.12" stroke-width="2"/>
+    <rect x="28" y="36" width="150" height="10" rx="5" fill="#111111" fill-opacity="0.25"/>
+    <rect x="28" y="60" width="184" height="6" rx="3" fill="#111111" fill-opacity="0.12"/>
+    <rect x="28" y="76" width="160" height="6" rx="3" fill="#111111" fill-opacity="0.12"/>
+    <rect x="28" y="92" width="176" height="6" rx="3" fill="#111111" fill-opacity="0.12"/>
+  </g>
+  <g transform="translate(190 140) rotate(-8)">
+    <rect width="240" height="320" rx="12" fill="#ffffff" stroke="#111111" stroke-opacity="0.12" stroke-width="2"/>
+    <rect x="28" y="36" width="120" height="10" rx="5" fill="#163D2B" fill-opacity="0.6"/>
+    <rect x="28" y="60" width="184" height="6" rx="3" fill="#111111" fill-opacity="0.12"/>
+    <rect x="28" y="76" width="150" height="6" rx="3" fill="#111111" fill-opacity="0.12"/>
+  </g>
+  <!-- main document with folded corner + PDF badge -->
+  <g transform="translate(280 170)">
+    <path d="M0 0 H180 L240 62 V300 a12 12 0 0 1 -12 12 H12 a12 12 0 0 1 -12 -12 Z" fill="#ffffff" stroke="#111111" stroke-width="3"/>
+    <path d="M180 0 V62 H240 Z" fill="#e8ebe9" stroke="#111111" stroke-width="3" stroke-linejoin="round"/>
+    <rect x="30" y="120" width="180" height="8" rx="4" fill="#111111" fill-opacity="0.35"/>
+    <rect x="30" y="142" width="140" height="8" rx="4" fill="#111111" fill-opacity="0.2"/>
+    <rect x="30" y="164" width="164" height="8" rx="4" fill="#111111" fill-opacity="0.2"/>
+    <rect x="30" y="186" width="120" height="8" rx="4" fill="#111111" fill-opacity="0.2"/>
+    <rect x="30" y="225" width="90" height="46" rx="8" fill="#C6F35C"/>
+    <text x="75" y="256" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="900" fill="#163D2B" text-anchor="middle">PDF</text>
+  </g>
+  <circle cx="120" cy="480" r="5" fill="#163D2B" fill-opacity="0.5"/>
+  <circle cx="700" cy="90" r="7" fill="#C6F35C"/>
+  <circle cx="680" cy="500" r="4" fill="#111111" fill-opacity="0.3"/>
+</svg>
