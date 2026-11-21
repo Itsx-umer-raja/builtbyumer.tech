@@ -77,3 +77,89 @@ A connector document existing in `/opt/hatch/connectors/` does **not** mean it i
 5. **MotionSites paid plan** — only if the user wants more AI-generated design prompts; the free plan is exhausted (0/3). Do not spend anything without his approval.
 6. **Error monitoring** — no connector exists; a lightweight client-side error reporter could be added later if the user wants it, but it is optional for a static tools site.
 7. **Keep the audit current** — every new integration used in later phases must be added here with the task it performed. Never claim an integration was used unless it was actually used.
+
+## 8. Phases 7–10 update (2026-11-20, master redesign)
+
+Phases 3–6 (HomeV8, ten worlds, directory/search) were already pushed;
+this section records what Phases 7–10 actually did and verified. Full
+test evidence: `docs/TEST-REPORT-V8.md`.
+
+### 8.1 What was used in Phases 7–10 — and for what
+
+| Integration | Tasks performed |
+|---|---|
+| **GitHub** | Not used for pushing in these phases (the coordinator was told not to push; the parent pushes after verifying). Used only as the repo being built and smoke-tested locally. |
+| **shadcn registry (via CLI)** | Not used in Phases 7–10 — no new components were installed. |
+| **MotionSites MCP** | Not used. 0 free prompts remain; no `get_prompt` call was made. |
+| **ResourceBoy workflow** | Not used in Phases 7–10. |
+| **Cloud browser** | Not available to the subagents that did this work (generic subagents cannot operate a live browser). See §8.4 — this is the main coverage gap. |
+| **AdSense (site integration)** | Verified, not changed: `adsEnabled` still `false`; `AdSlot` returns `null` while disabled; served homepage HTML contains zero `<ins>` elements. **Fix applied:** the verification file `google83a962037754e787.html` was moved from the repo root into `public/` (it was never served from the root) and now returns HTTP 200. |
+
+### 8.2 Verification results (all from the final local build)
+
+- `npm run build` (clean rebuild): **181/181 static pages, exit 0**.
+  Page count reconciled: 168 prerendered routes + 12 dynamic-route shells
+  + `sitemap.xml` = 181. `npx tsc --noEmit`: clean (after a build exists;
+  standalone `tsc` without `.next/` still fails on missing Next 16
+  generated types — pre-existing repo caveat, build is the authority).
+- Production smoke test: **173 URLs all HTTP 200** (all 168 prerendered
+  routes + sitemap/robots/ads.txt/verification file + 3 og:image routes).
+- All **145 tool pages render-verified** from SSR HTML (title +
+  description + `route-145` scope + JSON-LD present).
+- **Bug found and fixed:** per-tool `opengraph-image` routes returned no
+  response (Satori required `display: flex` on a div with two text
+  children); one-line fix in
+  `src/app/[category]/[tool]/opengraph-image.tsx`, now HTTP 200 with a
+  valid 1200×630 PNG.
+- Credential scan: zero hits; no new/paid dependency; site remains fully
+  independent of private MCP sessions.
+
+### 8.3 What was NOT done — and why
+
+- **No live-browser functional testing** (no tool exercised end-to-end:
+  upload → process → download; no console-error observation; no mobile
+  viewport, mobile-nav, hero-search or keyboard walkthrough). The
+  subagents that did Phases 7–10 have no live-browser access. This is
+  the largest remaining gap and needs a browser-capable agent.
+- **No analytics / Search Console / error monitoring added.** No
+  connector exists for any of them in this environment; nothing was
+  faked.
+- **AdSense script still loads unconditionally** in `layout.tsx` (the
+  gate covers slots only). Gating it is a small change but touches the
+  account verification path; left as a recommendation.
+- **Fonts not pruned:** 10 Google font families still load on every
+  page; pruning to the V8 pair (Anta + Space Grotesk) needs a user
+  decision.
+- **Per-tool interiors not fully restyled** (Phase 7 covered shared
+  surfaces only; ~44 legacy-palette occurrences in `registry-image.tsx`
+  and similar elsewhere remain as light "document" panels inside the
+  dark workspace — coherent, but not yet V8-native).
+
+### 8.4 Updated recommendations (in priority order)
+
+1. **Browser-test the tools** (parent / browser-capable agent): one
+   interactive tool per category end-to-end (PDF convert, image
+   compress, QR generate, network lookup, developer formatter, text
+   counter, calculator, data converter, business tool, productivity
+   tool) plus the 10 most-used tools; check the browser console on
+   homepage, `/tools`, a category page and tested tool pages; test
+   mobile navigation and hero search.
+2. **AdSense — before/at approval:** (a) verification file is now
+   served from `public/` — done; (b) flip `adsEnabled` only after
+   approval **and** pass real numeric `adUnitId`s (none are set today);
+   (c) optionally gate the layout-level AdSense script on
+   `adsEnabled` too.
+3. **Connect Vercel** only on the user's say-so (he deploys manually).
+4. **Analytics the honest way** (privacy-light, e.g. Plausible/Umami)
+   if wanted; Search Console verification by the user himself.
+5. **Prune the 10-family font load** to Anta + Space Grotesk (user decision).
+6. **Per-tool interior restyle** as a follow-up phase (fix the few dim
+   `text-muted` lines on dark backgrounds, e.g. developer-tools
+   "Computing…" line).
+7. **Dead code:** `home-v2/`–`home-v7/`, `components/jack/` (incl.
+   motionsites.ai hotlinks) and `ToolLauncher.tsx` (zero imports) are
+   unmounted; remove on user approval.
+8. **MotionSites paid plan** only if the user wants more prompts, never
+   spend without approval.
+9. **Keep the audit current** — every new integration in later phases
+   must be added here with the task it performed.

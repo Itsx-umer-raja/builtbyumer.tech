@@ -1200,6 +1200,9 @@ html.js-anim .home-v7 [data-stagger-item] {
    PRESERVED as a concept; only the visual system is new.
    Scoped to .home-v8 so the older .home-v2/…/.home-v7 systems
    and the light inner tool pages are untouched.
+   Phase 7 (2026-11-20) extends the same system to the tool
+   pages via the .route-145 scope below — see that block for
+   the token-sharing decision.
    Palette — EXACT, from the master prompt:
      --v8-bg       #070912  dark cinematic background
      --v8-bg-2     #101525  secondary background / raised surface
@@ -1415,6 +1418,78 @@ html.js-anim .home-v8 [data-stagger-item] {
   .v8-spin-slow,
   .v8-route-draw,
   .v8-bounce {
+    animation: none !important;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   ROUTE 145 TOOL-PAGE SCOPE — Phase 7 (2026-11-20).
+   Token-sharing decision: NO hoisting was needed and NO legacy
+   tokens were remapped.
+   - The --v8-* variables already live in :root (global) and the
+     .v8-glass / .v8-eyebrow / .v8-btn-* utilities are already
+     defined at top level, outside .home-v8 — only the .home-v8
+     base (background / text / font), its ::selection and its
+     focus-visible rules were scoped. This .route-145 class
+     supplies that same base for tool + category pages, so the
+     homepage is untouched: nothing here changes .home-v8.
+   - The legacy light tokens (--cream, --muted, --lime, --paper,
+     --forest) are deliberately NOT remapped inside this scope.
+     Per-tool bodies still contain ~180 hardcoded light panels
+     (bg-[#f6f1e6], bg-white) whose dark text comes from those
+     very tokens (text-cream, text-muted, text-[#163D2B]);
+     remapping them would turn that text light-on-light inside
+     those cards. Restyled shared surfaces therefore use
+     explicit var(--v8-*) colours, and per-tool light cards stay
+     coherent as light "document" panels inside the dark
+     workspace. A later phase that restyles per-tool internals
+     can revisit the remap.
+   - Two legacy global classes the tool UI still relies on are
+     re-skinned under this scope only: .dropzone (FileDrop +
+     the QR scanner's FileDropArea) and .tool-card hover
+     (related / directory cards). Their global definitions
+     stay as-is for any other consumer.
+   ══════════════════════════════════════════════════════════════ */
+.route-145 {
+  background-color: var(--v8-bg);
+  color: var(--v8-text);
+  font-family: var(--font-grotesk), system-ui, sans-serif;
+  color-scheme: dark;
+}
+
+.route-145 ::selection {
+  background: var(--v8-accent);
+  color: var(--v8-bg);
+}
+
+.route-145 a:focus-visible,
+.route-145 button:focus-visible,
+.route-145 input:focus-visible,
+.route-145 select:focus-visible,
+.route-145 textarea:focus-visible,
+.route-145 [role="button"]:focus-visible {
+  outline: 2px solid var(--v8-accent-2);
+  outline-offset: 3px;
+}
+
+/* Drop zone inside tool pages: dashed hairline, violet on drag. */
+.route-145 .dropzone {
+  border: 1.5px dashed var(--v8-line-strong);
+}
+.route-145 .dropzone:hover,
+.route-145 .dropzone.drag {
+  border-color: var(--v8-accent);
+  background: rgba(139, 124, 255, 0.08);
+}
+
+/* Shared card hover inside tool pages: violet, not forest/vermillion. */
+.route-145 .tool-card:hover {
+  border-color: rgba(139, 124, 255, 0.55);
+  background-color: rgba(139, 124, 255, 0.06);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .route-145 .animate-spin {
     animation: none !important;
   }
 }

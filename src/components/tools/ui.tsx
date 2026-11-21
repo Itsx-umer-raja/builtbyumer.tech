@@ -11,6 +11,11 @@ import { Upload, Check, Copy, AlertCircle, Loader2, RotateCcw, Download } from "
 import { cn, copyToClipboard, formatBytes } from "@/lib/utils";
 
 /* ── File drop / browse ─────────────────────────────────────── */
+/* Phase 7: V8 dark cinematic restyle. Same props, same
+   validation, same keyboard contract (role=button, tabIndex,
+   Enter/Space) — only the palette changed. The dashed border
+   and drag-over state live in .route-145 .dropzone in
+   globals.css; the fills below are explicit --v8-* colours. */
 
 export function FileDrop({
   accept,
@@ -61,7 +66,7 @@ export function FileDrop({
         role="button"
         tabIndex={0}
         className={cn(
-          "dropzone rounded-xl px-6 py-10 text-center cursor-pointer select-none bg-[#f6f1e6]",
+          "dropzone rounded-xl bg-[var(--v8-bg-2)] px-6 py-10 text-center cursor-pointer select-none",
           drag && "drag",
         )}
         onClick={() => inputRef.current?.click()}
@@ -75,9 +80,9 @@ export function FileDrop({
         onDragLeave={() => setDrag(false)}
         onDrop={onDrop}
       >
-        <Upload className="mx-auto mb-3 h-8 w-8 text-[#163D2B]" aria-hidden />
-        <p className="text-sm font-medium text-cream">{label}</p>
-        <p className="mt-1 text-xs text-muted">
+        <Upload className="mx-auto mb-3 h-8 w-8 text-[var(--v8-accent-2)]" aria-hidden />
+        <p className="text-sm font-medium text-[var(--v8-text)]">{label}</p>
+        <p className="mt-1 text-xs text-[var(--v8-muted)]">
           {hint ?? `Accepted: ${accept.replace(/\./g, "").split(",").join(", ")}`}
           {" · "}
           {`Max ${maxSizeMb} MB per file`}
@@ -100,6 +105,9 @@ export function FileDrop({
 }
 
 /* ── Buttons ────────────────────────────────────────────────── */
+/* Phase 7: V8 system. Primary = .v8-btn-primary (violet fill,
+   near-black text); Secondary = .v8-btn-ghost (hairline).
+   Same exports, same props, same disabled contract. */
 
 export function PrimaryButton({
   children,
@@ -118,7 +126,7 @@ export function PrimaryButton({
       onClick={onClick}
       disabled={disabled}
       className={cn(
-        "inline-flex items-center gap-2 rounded-lg bg-lime px-5 py-2.5 text-sm font-semibold text-[#163D2B] transition hover:bg-lime-2 disabled:opacity-40 disabled:cursor-not-allowed",
+        "v8-btn-primary inline-flex items-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold transition hover:bg-[var(--v8-highlight)] disabled:opacity-40 disabled:cursor-not-allowed",
         className,
       )}
     >
@@ -144,7 +152,7 @@ export function SecondaryButton({
       onClick={onClick}
       disabled={disabled}
       className={cn(
-        "inline-flex items-center gap-2 rounded-lg border border-[#121212]/15 px-5 py-2.5 text-sm font-medium text-cream transition hover:border-[#163D2B]/50 hover:text-[#163D2B] disabled:opacity-40 disabled:cursor-not-allowed",
+        "v8-btn-ghost inline-flex items-center gap-2 rounded-lg px-5 py-2.5 text-sm font-medium transition disabled:opacity-40 disabled:cursor-not-allowed",
         className,
       )}
     >
@@ -192,10 +200,10 @@ export function CopyButton({ text, label = "Copy" }: { text: string; label?: str
           })
           .catch(() => {})
       }
-      className="inline-flex items-center gap-1.5 rounded-md border border-[#121212]/15 px-3 py-1.5 text-xs font-medium text-cream transition hover:border-[#163D2B]/50 hover:text-[#163D2B]"
+      className="inline-flex items-center gap-1.5 rounded-md border border-[var(--v8-line-strong)] px-3 py-1.5 text-xs font-medium text-[var(--v8-text)] transition hover:border-[var(--v8-accent)] hover:text-[var(--v8-highlight)]"
     >
       {copied ? (
-        <Check className="h-3.5 w-3.5 text-[#163D2B]" aria-hidden />
+        <Check className="h-3.5 w-3.5 text-[var(--v8-accent-2)]" aria-hidden />
       ) : (
         <Copy className="h-3.5 w-3.5" aria-hidden />
       )}
@@ -205,10 +213,14 @@ export function CopyButton({ text, label = "Copy" }: { text: string; label?: str
 }
 
 /* ── Status ─────────────────────────────────────────────────── */
+/* Phase 7: V8 system. Errors stay honest and visible — red on
+   dark, role="alert". Busy/Ok use the V8 neutrals + cyan
+   (there is no green in the V8 palette); nothing here ever
+   fakes a success state. */
 
 export function ErrorNote({ children }: { children: ReactNode }) {
   return (
-    <p className="mt-3 flex items-start gap-2 rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-300">
+    <p role="alert" className="mt-3 flex items-start gap-2 rounded-lg border border-red-400/30 bg-red-500/10 px-4 py-3 text-sm text-red-300">
       <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
       <span>{children}</span>
     </p>
@@ -217,8 +229,8 @@ export function ErrorNote({ children }: { children: ReactNode }) {
 
 export function BusyNote({ children }: { children: ReactNode }) {
   return (
-    <p className="mt-3 flex items-center gap-2 rounded-lg border border-[#163D2B]/25 bg-[#163D2B]/5 px-4 py-3 text-sm text-[#163D2B]">
-      <Loader2 className="h-4 w-4 animate-spin" aria-hidden />
+    <p role="status" className="mt-3 flex items-center gap-2 rounded-lg border border-[var(--v8-line-strong)] bg-[var(--v8-bg-2)] px-4 py-3 text-sm text-[var(--v8-muted)]">
+      <Loader2 className="h-4 w-4 animate-spin text-[var(--v8-accent-2)]" aria-hidden />
       <span>{children}</span>
     </p>
   );
@@ -226,7 +238,7 @@ export function BusyNote({ children }: { children: ReactNode }) {
 
 export function OkNote({ children }: { children: ReactNode }) {
   return (
-    <p className="mt-3 flex items-start gap-2 rounded-lg border border-[#163D2B]/30 bg-[#163D2B]/10 px-4 py-3 text-sm text-[#163D2B]">
+    <p role="status" className="mt-3 flex items-start gap-2 rounded-lg border border-[var(--v8-accent-2)]/30 bg-[var(--v8-accent-2)]/10 px-4 py-3 text-sm text-[var(--v8-accent-2)]">
       <Check className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
       <span>{children}</span>
     </p>
@@ -234,11 +246,14 @@ export function OkNote({ children }: { children: ReactNode }) {
 }
 
 /* ── Inputs ─────────────────────────────────────────────────── */
+/* Phase 7: V8 dark fields — raised-surface background, hairline
+   border, violet focus border + soft focus ring. Muted text
+   #A3A9BD on #070912 is AAA, per the V8 system. */
 
 export const inputCls =
-  "w-full rounded-lg border border-[#121212]/15 bg-white px-4 py-2.5 text-sm text-cream placeholder:text-muted focus:border-[#163D2B]/60 focus:outline-none";
+  "w-full rounded-lg border border-[var(--v8-line-strong)] bg-[var(--v8-bg)] px-4 py-2.5 text-sm text-[var(--v8-text)] placeholder:text-[var(--v8-muted)] focus:border-[var(--v8-accent)] focus:outline-none focus:ring-2 focus:ring-[var(--v8-accent)]/40";
 
-export const labelCls = "mb-1.5 block text-xs font-semibold uppercase tracking-wider text-muted";
+export const labelCls = "mb-1.5 block text-xs font-semibold uppercase tracking-wider text-[var(--v8-muted)]";
 
 export function Field({
   label,

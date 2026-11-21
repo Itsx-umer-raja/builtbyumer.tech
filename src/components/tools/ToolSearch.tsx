@@ -8,8 +8,8 @@ import { CATEGORIES } from "@/data/categories";
 
 /**
  * Live tool search. `variant` picks the palette: "dark" for the inner
- * /tools pages (BuiltByUmer theme), "light" for the white homepage
- * section that matches the Jack-style landing.
+ * /tools pages (V8 dark system, Phase 7), "light" for the white homepage
+ * section that matches the Jack-style landing (untouched).
  */
 export function ToolSearch({
   tools,
@@ -39,7 +39,7 @@ export function ToolSearch({
 
   const inputCls = light
     ? "w-full rounded-full border-[1.5px] border-[rgba(12,12,12,0.2)] bg-white px-5 py-3.5 text-base text-[#0C0C0C] placeholder:text-[#0C0C0C]/40 focus:border-[#0C0C0C] focus:outline-none"
-    : "w-full rounded-full border border-hv-line-strong bg-hv-surface px-4 py-3.5 text-base text-hv-ink placeholder:text-hv-muted focus:border-hv-accent focus:outline-none";
+    : "w-full rounded-full border border-[var(--v8-line-strong)] bg-[var(--v8-bg-2)] px-4 py-3.5 text-base text-[var(--v8-text)] placeholder:text-[var(--v8-muted)] focus:border-[var(--v8-accent)] focus:outline-none focus:ring-2 focus:ring-[var(--v8-accent)]/40";
 
   const chip = (active: boolean) =>
     light
@@ -49,16 +49,16 @@ export function ToolSearch({
           : "border-[rgba(12,12,12,0.25)] text-[#0C0C0C]/70 hover:border-[#0C0C0C] hover:text-[#0C0C0C]")
       : "rounded-full border px-3.5 py-1.5 text-xs font-medium transition " +
         (active
-          ? "border-hv-accent bg-hv-accent text-hv-ink"
-          : "border-hv-line-strong text-hv-ink/80 hover:border-hv-accent hover:text-hv-accent");
+          ? "border-[var(--v8-accent)] bg-[var(--v8-accent)] text-[var(--v8-bg)]"
+          : "border-[var(--v8-line-strong)] text-[var(--v8-text)]/80 hover:border-[var(--v8-accent)] hover:text-[var(--v8-highlight)]");
 
   const card = light
     ? "tool-card-light block rounded-2xl border border-[rgba(12,12,12,0.15)] bg-white p-5"
-    : "tool-card block rounded-xl border border-hv-line bg-hv-surface p-5";
+    : "tool-card block rounded-xl border border-[var(--v8-line)] bg-[var(--v8-bg-2)] p-5";
 
   const empty = light
     ? "mt-10 text-center text-sm text-[#0C0C0C]/60"
-    : "mt-10 text-center text-sm text-hv-muted";
+    : "mt-10 text-center text-sm text-[var(--v8-muted)]";
 
   return (
     <div>
@@ -66,7 +66,7 @@ export function ToolSearch({
         <Search
           className={
             "pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 " +
-            (light ? "text-[#0C0C0C]/50" : "text-muted")
+            (light ? "text-[#0C0C0C]/50" : "text-[var(--v8-muted)]")
           }
           aria-hidden
         />
@@ -101,7 +101,7 @@ export function ToolSearch({
       </div>
 
       <div className="mt-8 flex flex-wrap items-center gap-3">
-        <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-hv-muted">
+        <p className="font-grotesk text-[11px] font-semibold uppercase tracking-[0.2em] text-[var(--v8-muted)]">
           {results.length} {results.length === 1 ? "tool" : "tools"}
           {query.trim() ? ` matching “${query.trim()}”` : ""}
           {category
@@ -119,7 +119,7 @@ export function ToolSearch({
               <h2
                 className={
                   "text-base font-medium " +
-                  (light ? "uppercase text-[#0C0C0C]" : "font-grotesk font-semibold text-hv-ink")
+                  (light ? "uppercase text-[#0C0C0C]" : "font-grotesk font-semibold text-[var(--v8-text)]")
                 }
               >
                 {t.title}
@@ -127,7 +127,7 @@ export function ToolSearch({
               <p
                 className={
                   "mt-2 line-clamp-3 text-sm leading-relaxed " +
-                  (light ? "text-[#0C0C0C]/60" : "text-hv-muted")
+                  (light ? "text-[#0C0C0C]/60" : "text-[var(--v8-muted)]")
                 }
               >
                 {t.description}
@@ -135,7 +135,7 @@ export function ToolSearch({
               <span
                 className={
                   "mt-3 inline-block text-[11px] font-semibold uppercase tracking-widest " +
-                  (light ? "text-[#0C0C0C]/50" : "font-mono text-hv-accent")
+                  (light ? "text-[#0C0C0C]/50" : "font-grotesk text-[var(--v8-accent)]")
                 }
               >
                 {CATEGORIES.find((c) => c.slug === t.category)?.name}

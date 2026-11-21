@@ -41,12 +41,17 @@ import { compressToTargetBytes, type LossyFormat } from "@/lib/images/exact";
 import { parseImageMetadata, type ImageMetadata } from "@/lib/images/metadata";
 
 /* ── Shared helpers ─────────────────────────────────────────── */
+/* Phase 7: V8 dark restyle of the shared image-family panels
+   and controls only (BehaviorNote, FileMeta, ResultPanel,
+   SourcePreview, NumberField/SelectField via inputCls,
+   QualitySlider, Checkbox). Per-tool bodies and their
+   processing logic are untouched. */
 
 const IMAGE_ACCEPT = ".jpg,.jpeg,.png,.webp,.gif,.bmp";
 
 function BehaviorNote({ children }: { children: ReactNode }) {
   return (
-    <p className="rounded-lg border border-[#121212]/12 bg-[#f6f1e6] px-4 py-3 text-xs leading-relaxed text-muted">
+    <p className="rounded-lg border border-[var(--v8-line)] bg-[var(--v8-bg-2)] px-4 py-3 text-xs leading-relaxed text-[var(--v8-muted)]">
       {children}
     </p>
   );
@@ -54,7 +59,7 @@ function BehaviorNote({ children }: { children: ReactNode }) {
 
 function FileMeta({ file }: { file: File }) {
   return (
-    <p className="text-xs text-muted">
+    <p className="text-xs text-[var(--v8-muted)]">
       {file.name} · {formatBytes(file.size)}
     </p>
   );
@@ -97,18 +102,18 @@ function ResultPanel({
   return (
     <div className="space-y-3">
       {url && (
-        <div className="rounded-xl border border-[#121212]/12 bg-[#f6f1e6] p-4">
+        <div className="rounded-xl border border-[var(--v8-line)] bg-[var(--v8-bg-2)] p-4">
           <img src={url} alt="Result preview" className="mx-auto max-h-80 w-auto max-w-full rounded" />
         </div>
       )}
-      <p className="text-sm text-muted">
+      <p className="text-sm text-[var(--v8-muted)]">
         {formatBytes(originalSize)} →{" "}
-        <span className="font-semibold text-cream">{formatBytes(result.blob.size)}</span>
+        <span className="font-semibold text-[var(--v8-text)]">{formatBytes(result.blob.size)}</span>
         {saved !== 0 && (saved > 0 ? ` (${saved}% smaller)` : ` (${-saved}% larger)`)}
         {" · "}
         {result.filename}
       </p>
-      {extraNote && <p className="text-xs text-muted">{extraNote}</p>}
+      {extraNote && <p className="text-xs text-[var(--v8-muted)]">{extraNote}</p>}
       <div className="flex flex-wrap items-center gap-3">
         <DownloadButton onClick={() => downloadBlob(result.blob, result.filename)} />
         <ResetButton onClick={onReset} />
@@ -121,7 +126,7 @@ function SourcePreview({ file, maxHeightClass = "max-h-72" }: { file: File; maxH
   const url = usePreviewUrl(file);
   if (!url) return null;
   return (
-    <div className="rounded-xl border border-[#121212]/12 bg-[#f6f1e6] p-3">
+    <div className="rounded-xl border border-[var(--v8-line)] bg-[var(--v8-bg-2)] p-3">
       <img src={url} alt="Source preview" className={cn("mx-auto w-auto max-w-full rounded", maxHeightClass)} />
     </div>
   );
@@ -193,7 +198,7 @@ function QualitySlider({ value, onChange }: { value: number; onChange: (v: numbe
         step={1}
         value={Math.round(value * 100)}
         onChange={(e) => onChange(Number(e.target.value) / 100)}
-        className="w-full accent-lime"
+        className="w-full accent-[#8b7cff]"
       />
     </Field>
   );
@@ -209,12 +214,12 @@ function Checkbox({
   onChange: (v: boolean) => void;
 }) {
   return (
-    <label className="flex items-center gap-2 text-sm text-cream">
+    <label className="flex items-center gap-2 text-sm text-[var(--v8-text)]">
       <input
         type="checkbox"
         checked={checked}
         onChange={(e) => onChange(e.target.checked)}
-        className="h-4 w-4 accent-lime"
+        className="h-4 w-4 accent-[#8b7cff]"
       />
       {label}
     </label>

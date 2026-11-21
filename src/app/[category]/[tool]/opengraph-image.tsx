@@ -51,7 +51,7 @@ export default async function OpengraphImage({
             BUILTBYUMER
           </div>
           <div style={{ display: "flex", flex: 1 }} />
-          <div style={{ fontSize: 22, fontWeight: 600, color: "#163D2B", letterSpacing: "0.06em" }}>
+          <div style={{ display: "flex", fontSize: 22, fontWeight: 600, color: "#163D2B", letterSpacing: "0.06em" }}>
             {cat.toUpperCase()} TOOL
           </div>
         </div>

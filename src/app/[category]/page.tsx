@@ -60,7 +60,7 @@ export default async function CategoryPage({
     <PageShell marquee>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListLd) }} />
       {/* Hero band — V8 dark system (tokens + utilities only). */}
-      <div className="home-v8 relative overflow-hidden">
+      <div className="home-v8 route-145 relative overflow-hidden">
         <div aria-hidden className="v8-topo-bg pointer-events-none absolute inset-0" />
         <div className="relative mx-auto w-full max-w-7xl px-5 pb-16 pt-14 sm:px-8 sm:pt-20">
           <Reveal>
@@ -98,7 +98,7 @@ export default async function CategoryPage({
       </div>
 
       {/* Tool list rendering and logic unchanged — Phase 7 owns tool pages. */}
-      <div className="home-v8">
+      <div className="home-v8 route-145">
         <div className="mx-auto w-full max-w-7xl px-5 pb-20 sm:px-8">
           <Reveal className="mt-14">
             <CategoryToolRows tools={tools} category={category} />

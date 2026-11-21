@@ -28,11 +28,17 @@ import {
 } from "@/lib/qr/decode-image";
 
 /* ══ Shared bits ══════════════════════════════════════════════ */
+/* Phase 7: V8 dark restyle of the shared QR-family chrome only
+   (PrivacyNote, PayloadBox via inputCls, QrGenerator preview
+   panel + colour swatches, FileDropArea, ImageDecodeTool hint).
+   Payload builders, decoding and download logic are untouched.
+   The QR canvas itself keeps its own light background (chosen
+   by the user, default white) so codes stay scannable. */
 
 function PrivacyNote({ children }: { children: ReactNode }) {
   return (
-    <p className="mt-4 flex items-start gap-2 rounded-lg border border-[#121212]/12 bg-[#f6f1e6] px-4 py-3 text-xs text-muted">
-      <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-[#163D2B]" aria-hidden />
+    <p className="mt-4 flex items-start gap-2 rounded-lg border border-[var(--v8-line)] bg-[var(--v8-bg-2)] px-4 py-3 text-xs text-[var(--v8-muted)]">
+      <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-[var(--v8-accent-2)]" aria-hidden />
       <span>{children}</span>
     </p>
   );
@@ -251,7 +257,7 @@ function QrGenerator({ config }: { config: QrToolConfig }) {
                 type="color"
                 value={dark}
                 onChange={(e) => setDark(e.target.value)}
-                className="h-[42px] w-16 cursor-pointer rounded-lg border border-[#121212]/15 bg-transparent p-1"
+                className="h-[42px] w-16 cursor-pointer rounded-lg border border-[var(--v8-line-strong)] bg-transparent p-1"
                 aria-label="Foreground colour"
               />
             </Field>
@@ -260,7 +266,7 @@ function QrGenerator({ config }: { config: QrToolConfig }) {
                 type="color"
                 value={light}
                 onChange={(e) => setLight(e.target.value)}
-                className="h-[42px] w-16 cursor-pointer rounded-lg border border-[#121212]/15 bg-transparent p-1"
+                className="h-[42px] w-16 cursor-pointer rounded-lg border border-[var(--v8-line-strong)] bg-transparent p-1"
                 aria-label="Background colour"
               />
             </Field>
@@ -273,15 +279,15 @@ function QrGenerator({ config }: { config: QrToolConfig }) {
       </div>
 
       <div>
-        <div className="mb-3 flex min-h-[260px] items-center justify-center rounded-xl border border-[#121212]/12 bg-white p-6">
+        <div className="mb-3 flex min-h-[260px] items-center justify-center rounded-xl border border-[var(--v8-line)] bg-[var(--v8-bg-2)] p-6">
           {ready ? (
             <canvas
               ref={canvasRef}
-              className="h-auto max-w-full rounded-lg"
+              className="h-auto max-w-full rounded-lg bg-white"
               style={{ width: "min(100%, " + size + "px)", imageRendering: "pixelated" }}
             />
           ) : (
-            <div className="flex flex-col items-center gap-3 text-center text-muted">
+            <div className="flex flex-col items-center gap-3 text-center text-[var(--v8-muted)]">
               {config.icon}
               <p className="max-w-xs text-sm">
                 Fill in the fields on the left — the QR code appears here as you type.
@@ -323,7 +329,7 @@ function requireValue(values: Record<string, string>, key: string, message: stri
 
 const TEXT_QR_CONFIG: QrToolConfig = {
   fileBase: "qr-code",
-  icon: <QrCode className="h-10 w-10 text-[#163D2B]" aria-hidden />,
+  icon: <QrCode className="h-10 w-10 text-[var(--v8-accent-2)]" aria-hidden />,
   fields: [
     {
       key: "text",
@@ -344,7 +350,7 @@ const TEXT_QR_CONFIG: QrToolConfig = {
 
 const URL_QR_CONFIG: QrToolConfig = {
   fileBase: "url-qr",
-  icon: <QrCode className="h-10 w-10 text-[#163D2B]" aria-hidden />,
+  icon: <QrCode className="h-10 w-10 text-[var(--v8-accent-2)]" aria-hidden />,
   fields: [
     {
       key: "url",
@@ -375,7 +381,7 @@ function escapeWifi(value: string): string {
 
 const WIFI_QR_CONFIG: QrToolConfig = {
   fileBase: "wifi-qr",
-  icon: <Wifi className="h-10 w-10 text-[#163D2B]" aria-hidden />,
+  icon: <Wifi className="h-10 w-10 text-[var(--v8-accent-2)]" aria-hidden />,
   fields: [
     { key: "ssid", label: "Network name (SSID)", placeholder: "MyNetwork" },
     {
@@ -421,7 +427,7 @@ function getString(values: Record<string, string>, key: string): string {
 
 const WHATSAPP_QR_CONFIG: QrToolConfig = {
   fileBase: "whatsapp-qr",
-  icon: <MessageCircle className="h-10 w-10 text-[#163D2B]" aria-hidden />,
+  icon: <MessageCircle className="h-10 w-10 text-[var(--v8-accent-2)]" aria-hidden />,
   fields: [
     {
       key: "phone",
@@ -463,7 +469,7 @@ function escapeVCard(value: string): string {
 
 const CONTACT_QR_CONFIG: QrToolConfig = {
   fileBase: "contact-qr",
-  icon: <CircleUser className="h-10 w-10 text-[#163D2B]" aria-hidden />,
+  icon: <CircleUser className="h-10 w-10 text-[var(--v8-accent-2)]" aria-hidden />,
   fields: [
     { key: "firstName", label: "First name", placeholder: "Umer" },
     { key: "lastName", label: "Last name", placeholder: "Raja" },
@@ -518,7 +524,7 @@ const CONTACT_QR_CONFIG: QrToolConfig = {
 
 const EMAIL_QR_CONFIG: QrToolConfig = {
   fileBase: "email-qr",
-  icon: <Mail className="h-10 w-10 text-[#163D2B]" aria-hidden />,
+  icon: <Mail className="h-10 w-10 text-[var(--v8-accent-2)]" aria-hidden />,
   fields: [
     { key: "to", label: "Recipient", type: "email", placeholder: "you@example.com" },
     { key: "subject", label: "Subject (optional)", placeholder: "Hello!" },
@@ -550,7 +556,7 @@ const EMAIL_QR_CONFIG: QrToolConfig = {
 
 const PHONE_QR_CONFIG: QrToolConfig = {
   fileBase: "phone-qr",
-  icon: <Smartphone className="h-10 w-10 text-[#163D2B]" aria-hidden />,
+  icon: <Smartphone className="h-10 w-10 text-[var(--v8-accent-2)]" aria-hidden />,
   fields: [
     {
       key: "phone",
@@ -647,7 +653,7 @@ function ImageDecodeTool({
     <div className="grid gap-6 lg:grid-cols-2">
       <div>
         <FileDropArea onFiles={(files) => void handleFiles(files)} />
-        <p className="mt-2 text-xs text-muted">{formatsHint} You can also paste an image with Ctrl+V.</p>
+        <p className="mt-2 text-xs text-[var(--v8-muted)]">{formatsHint} You can also paste an image with Ctrl+V.</p>
         {previewUrl && (
           <div className="mt-4">
             <label className={labelCls}>Scanned image</label>
@@ -682,14 +688,14 @@ function ImageDecodeTool({
               spellCheck={false}
               className={cn(inputCls, "font-mono resize-y break-all")}
             />
-            <p className="mt-2 text-xs text-muted">
-              Symbology: <span className="font-semibold text-[#163D2B]">{result.format}</span>
+            <p className="mt-2 text-xs text-[var(--v8-muted)]">
+              Symbology: <span className="font-semibold text-[var(--v8-accent-2)]">{result.format}</span>
             </p>
             <OkNote>Decoded successfully — everything stayed on your device.</OkNote>
           </>
         ) : (
-          <div className="flex min-h-[240px] flex-col items-center justify-center gap-3 rounded-xl border border-[#121212]/12 bg-white p-6 text-center text-muted">
-            <ScanLine className="h-10 w-10 text-[#163D2B]" aria-hidden />
+          <div className="flex min-h-[240px] flex-col items-center justify-center gap-3 rounded-xl border border-[var(--v8-line)] bg-[var(--v8-bg-2)] p-6 text-center text-[var(--v8-muted)]">
+            <ScanLine className="h-10 w-10 text-[var(--v8-accent-2)]" aria-hidden />
             <p className="max-w-xs text-sm">
               Drop in a photo or screenshot and the decoded value appears here.
             </p>
@@ -712,7 +718,7 @@ function FileDropArea({ onFiles }: { onFiles: (files: File[]) => void }) {
       role="button"
       tabIndex={0}
       className={cn(
-        "dropzone rounded-xl px-6 py-10 text-center cursor-pointer select-none bg-[#f6f1e6]",
+        "dropzone rounded-xl bg-[var(--v8-bg-2)] px-6 py-10 text-center cursor-pointer select-none",
         drag && "drag",
       )}
       onClick={() => inputRef.current?.click()}
@@ -730,9 +736,9 @@ function FileDropArea({ onFiles }: { onFiles: (files: File[]) => void }) {
         if (e.dataTransfer.files.length > 0) onFiles(Array.from(e.dataTransfer.files));
       }}
     >
-      <ScanLine className="mx-auto mb-3 h-8 w-8 text-[#163D2B]" aria-hidden />
-      <p className="text-sm font-medium text-cream">Drop an image here or click to browse</p>
-      <p className="mt-1 text-xs text-muted">Accepted: PNG, JPG, WEBP, GIF · Max 100 MB</p>
+      <ScanLine className="mx-auto mb-3 h-8 w-8 text-[var(--v8-accent-2)]" aria-hidden />
+      <p className="text-sm font-medium text-[var(--v8-text)]">Drop an image here or click to browse</p>
+      <p className="mt-1 text-xs text-[var(--v8-muted)]">Accepted: PNG, JPG, WEBP, GIF · Max 100 MB</p>
       <input
         ref={inputRef}
         type="file"
@@ -1107,7 +1113,7 @@ function BarcodeGenerator() {
                   type="color"
                   value={lineColor}
                   onChange={(e) => setLineColor(e.target.value)}
-                  className="h-[42px] w-16 cursor-pointer rounded-lg border border-[#121212]/15 bg-transparent p-1"
+                  className="h-[42px] w-16 cursor-pointer rounded-lg border border-[var(--v8-line-strong)] bg-transparent p-1"
                   aria-label="Bar colour"
                 />
               </Field>
@@ -1116,17 +1122,17 @@ function BarcodeGenerator() {
                   type="color"
                   value={background}
                   onChange={(e) => setBackground(e.target.value)}
-                  className="h-[42px] w-16 cursor-pointer rounded-lg border border-[#121212]/15 bg-transparent p-1"
+                  className="h-[42px] w-16 cursor-pointer rounded-lg border border-[var(--v8-line-strong)] bg-transparent p-1"
                   aria-label="Barcode background colour"
                 />
               </Field>
             </div>
-            <label className="inline-flex cursor-pointer items-center gap-2 text-xs font-medium text-cream sm:col-span-2">
+            <label className="inline-flex cursor-pointer items-center gap-2 text-xs font-medium text-[var(--v8-text)] sm:col-span-2">
               <input
                 type="checkbox"
                 checked={showValue}
                 onChange={(e) => setShowValue(e.target.checked)}
-                className="h-4 w-4 accent-lime"
+                className="h-4 w-4 accent-[#8b7cff]"
               />
               Show the value as human-readable text under the bars
             </label>
@@ -1152,12 +1158,12 @@ function BarcodeGenerator() {
       </div>
 
       <div>
-        <div className="mb-3 flex min-h-[260px] items-center justify-center rounded-xl border border-[#121212]/12 bg-white p-6">
+        <div className="mb-3 flex min-h-[260px] items-center justify-center rounded-xl border border-[var(--v8-line)] bg-[var(--v8-bg-2)] p-6">
           {ready ? (
             <canvas ref={canvasRef} className="h-auto max-w-full rounded-lg bg-white" />
           ) : (
-            <div className="flex flex-col items-center gap-3 text-center text-muted">
-              <BarcodeIcon className="h-10 w-10 text-[#163D2B]" aria-hidden />
+            <div className="flex flex-col items-center gap-3 text-center text-[var(--v8-muted)]">
+              <BarcodeIcon className="h-10 w-10 text-[var(--v8-accent-2)]" aria-hidden />
               <p className="max-w-xs text-sm">
                 Enter a value and pick a symbology — the barcode preview appears here.
               </p>
